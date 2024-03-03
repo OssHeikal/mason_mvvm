@@ -1,5 +1,4 @@
 import 'package:intl/intl.dart';
-import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 extension DateTimeExtensions on DateTime? {
   DateTime get validate {
@@ -18,27 +17,6 @@ extension DateTimeExtensions on DateTime? {
   }
 
   bool get isNull => this == null;
-}
-
-extension PickerDateRangeEx on PickerDateRange? {
-  PickerDateRange get validate {
-    if (this == null) {
-      return PickerDateRange(DateTime.now(), DateTime.now());
-    }
-    return this!;
-  }
-
-  DateTime get startDate => validate.startDate ?? DateTime.now();
-  DateTime get endDate => validate.endDate ?? DateTime.now();
-
-  String get startDateFormatted => startDate.format();
-  String get endDateFormatted => endDate.format();
-
-  String get formattedRange => '$startDateFormatted - $endDateFormatted';
-
-  int get daysDifference {
-    return endDate.difference(startDate).inDays;
-  }
 }
 
 extension DurationExtensions on Duration {

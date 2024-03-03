@@ -2,12 +2,12 @@
 
 import 'dart:ui';
 
-import 'package:al_sadeem_app/core/config/extensions/all_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../resources/dimensions_manager.dart';
 import '../router/page_transition.dart';
+import 'all_extensions.dart';
 
 Duration transitionDuration = const Duration(milliseconds: 300);
 

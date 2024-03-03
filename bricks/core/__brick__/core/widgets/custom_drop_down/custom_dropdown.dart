@@ -2,11 +2,12 @@ library animated_custom_dropdown;
 
 import 'dart:async';
 
-import 'package:al_sadeem_app/core/config/extensions/all_extensions.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../config/extensions/all_extensions.dart';
 import '../../config/theme/light_theme.dart';
 import '../../resources/resources.dart';
 

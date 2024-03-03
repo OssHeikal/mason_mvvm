@@ -15,46 +15,6 @@ class AppRoutes extends AppRoute {
 
   // App routes
   static const splash = AppRoute('splash', '/');
-  static const onboarding = AppRoute('onboarding', '/onboarding');
-
-  // Auth routes
-  static const register = AppRoute('register', '/register');
-  static const verifyCode = AppRoute('verifyCode', '/verifyCode');
-  static const attachDocs = AppRoute('attachDos', '/attachDos');
-  static const login = AppRoute('login', '/login');
-  static const forgetPassword = AppRoute('forgetPassword', 'forgetPassword');
-  static const verifyForgetPassword = AppRoute('verifyForgetPassword', 'verifyForgetPassword');
-  static const resetPassword = AppRoute('resetPassword', 'resetPassword');
-
-  // Home routes
-  static const home = AppRoute('home', '/home');
-  static const searchResult = AppRoute('searchResult', 'searchResult');
-  static const map = AppRoute('map', 'map');
-  static const filter = AppRoute('filter', 'filter');
-
-  // explore routes
-  static const explore = AppRoute('explore', '/explore');
-
-  // bookings routes
-  static const bookings = AppRoute('bookings', '/bookings');
-  static const bookingDetails = AppRoute('bookingDetails', 'bookingDetails');
-
-  // settings routes
-  static const settings = AppRoute('settings', '/settings');
-  static const contactUs = AppRoute('contactUs', 'contactUs');
-  static const profile = AppRoute('profile', 'profile');
-  static const aboutUs = AppRoute('aboutUs', 'aboutUs');
-  static const terms = AppRoute('terms', 'terms');
-  static const language = AppRoute('language', 'language');
-
-  // car routes
-  static const carDetails = AppRoute('carDetails', '/carDetails');
-  static const carExtras = AppRoute('carExtras', 'carExtras');
-  static const confirmCarBooking = AppRoute('confirmCarBooking', 'confirmCarBooking');
-  static const paymentDetails = AppRoute('paymentDetails', 'paymentDetails');
-
-  // notifications routes
-  static const notifications = AppRoute('notifications', '/notifications');
 }
 
 class AppRoute {

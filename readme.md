@@ -160,7 +160,7 @@ mason make assets -o ../assets
     - assets/lang/
 ```
 
-## generate file that contains assets variables and widgets and injectable: 
+### generate file that contains assets variables and widgets and injectable: 
 
 1. activate flutter gen 
 
@@ -201,7 +201,7 @@ flutter_gen:
 dart run build_runner build
 ```
 
-## generate file that contains localization keys:
+### generate file that contains localization keys:
 
 ```shell
 flutter pub run easy_localization:generate -S "assets/lang" -O "lib/core/resources/gen" -o "locale_keys.g.dart" -f keys
@@ -210,4 +210,14 @@ flutter pub run easy_localization:generate -S "assets/lang" -O "lib/core/resourc
 ### generate readme file (enter project name)
 ```shell
 mason make readme -o ../
+```
+
+## ignore mason files 
+
+```shell
+git update-index --skip-worktree mason/.mason/bricks.json
+
+git update-index --skip-worktree mason/mason-lock.json
+
+git update-index --skip-worktree mason/mason.yaml
 ```

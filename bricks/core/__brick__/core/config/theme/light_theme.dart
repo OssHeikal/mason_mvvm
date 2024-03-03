@@ -1,9 +1,9 @@
-import 'package:al_sadeem_app/core/config/extensions/all_extensions.dart';
-import 'package:al_sadeem_app/core/config/theme/theme_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../resources/resources.dart';
+import '../extensions/all_extensions.dart';
+import 'theme_manager.dart';
 
 // Define your light theme colors
 class LightThemeColors {

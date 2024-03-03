@@ -1,8 +1,8 @@
-import 'package:al_sadeem_app/core/config/theme/light_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../../resources/resources.dart';
+import 'light_theme.dart';
 
 class AppThemeManager {
   const AppThemeManager._();
