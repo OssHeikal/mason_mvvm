@@ -1,0 +1,9 @@
+bricks:
+  readme:
+    path: ./bricks/readme
+  assets:
+    path: ./bricks/assets
+  core:
+    path: ./bricks/core
+  feature:
+    path: ./bricks/feature
