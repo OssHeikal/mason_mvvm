@@ -1,7 +1,7 @@
-part of 'counter_cubit.dart';
+part of '{{featureName.snakeCase()}}_cubit.dart';
 
-class CounterState extends Equatable {
-  const CounterState();
+class {{featureName.pascalCase()}}State extends Equatable {
+  const {{featureName.pascalCase()}}State();
 
   @override
   List<Object> get props => [];
