@@ -2,12 +2,14 @@
 
 import 'dart:ui';
 
-import 'package:al_sadeem_app/core/config/extensions/all_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../resources/dimensions_manager.dart';
 import '../router/page_transition.dart';
+import '../theme/light_theme.dart';
+import 'all_extensions.dart';
 
 Duration transitionDuration = const Duration(milliseconds: 300);
 
@@ -224,7 +226,58 @@ extension WidgetExtension on Widget {
   Widget withTooltip({required String msg}) => Tooltip(message: msg, child: this);
 
   /// Make your any widget refreshable with RefreshIndicator on top
-  Widget get makeRefreshable => Stack(children: [ListView(), this]);
+  // Widget get makeRefreshable => Stack(children: [ListView(), this]);
+  RefreshIndicator makeRefreshable(Future<void> Function() onRefresh, {EdgeInsetsGeometry? padding}) {
+    return RefreshIndicator(
+      backgroundColor: LightThemeColors.primaryContainer,
+      color: LightThemeColors.primary,
+      onRefresh: onRefresh,
+      child: ListView(
+        physics: const AlwaysScrollableScrollPhysics(),
+        padding: padding ?? const EdgeInsets.only(bottom: AppSize.bottomNavBarHeight),
+        children: [this],
+      ),
+    );
+  }
+
+  Widget withShimmer({
+    Duration duration = const Duration(seconds: 1),
+    Color baseColor = Colors.grey,
+    Color highlightColor = Colors.grey,
+    bool buildWhen = true,
+  }) {
+    if (!buildWhen) return this;
+    if (this is SizedBox) {
+      return SizedBox(
+        width: (this as SizedBox).width,
+        height: (this as SizedBox).height,
+        child: Shimmer.fromColors(
+          period: duration,
+          baseColor: baseColor.withOpacity(0.1),
+          highlightColor: highlightColor.withOpacity(0.25),
+          child: this,
+        ),
+      );
+    } else if (this is CircleAvatar) {
+      return CircleAvatar(
+        radius: (this as CircleAvatar).radius,
+        backgroundColor: Colors.transparent,
+        child: Shimmer.fromColors(
+          period: duration,
+          baseColor: baseColor.withOpacity(0.1),
+          highlightColor: highlightColor.withOpacity(0.25),
+          child: this,
+        ),
+      );
+    } else {
+      return Shimmer.fromColors(
+        period: duration,
+        baseColor: baseColor.withOpacity(0.1),
+        highlightColor: highlightColor.withOpacity(0.25),
+        child: this,
+      );
+    }
+  }
 }
 
 extension PaddingExtension on Widget {

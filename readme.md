@@ -136,6 +136,9 @@ dependencies:
   pin_code_fields: ^8.0.1
   flutter_animate: ^4.5.0
   share_plus: ^7.2.2
+  infinite_scroll_pagination: ^4.0.0
+  readmore: ^3.0.0
+  carousel_slider: ^4.2.1
 ```
 
 ### generate project template:

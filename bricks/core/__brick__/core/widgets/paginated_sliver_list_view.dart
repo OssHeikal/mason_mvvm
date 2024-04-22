@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
-import '../../../../../example/lib/core/resources/resources.dart';
+import '../config/extensions/all_extensions.dart';
+import '../resources/resources.dart';
 
 class PaginatedSliverListView<T> extends StatelessWidget {
   const PaginatedSliverListView({
@@ -44,8 +45,8 @@ class PaginatedSliverListView<T> extends StatelessWidget {
           itemBuilder: itemBuilder,
           noItemsFoundIndicatorBuilder: emptyItemBuilder,
           newPageProgressIndicatorBuilder: (context) => const CupertinoActivityIndicator().center(),
-          firstPageErrorIndicatorBuilder: (context) =>
-              ErrorScreen(onRetry: onRetry ?? () => pagingController.refresh()),
+          // firstPageErrorIndicatorBuilder: (context) =>
+          //     ErrorScreen(onRetry: onRetry ?? () => pagingController.refresh()),
           firstPageProgressIndicatorBuilder: (context) {
             return loadingItemBuilder ?? const CupertinoActivityIndicator().center();
           },
