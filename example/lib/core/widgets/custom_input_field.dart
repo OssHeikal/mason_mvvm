@@ -1,4 +1,3 @@
-import 'package:al_sadeem_app/core/config/extensions/all_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
