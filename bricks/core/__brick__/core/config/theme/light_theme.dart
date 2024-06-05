@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../../resources/resources.dart';
 import '../extensions/all_extensions.dart';
@@ -9,7 +8,73 @@ import 'theme_manager.dart';
 class LightThemeColors {
   const LightThemeColors._();
   // Primary Colors
-  static const Color primary = Color(0xFF2F848B);
+  static const Color primary = Color(0xFF00516A);
+
+  static const _primaryValue = 0xFF00141A;
+  static MaterialColor primaryShade = const MaterialColor(
+    _primaryValue,
+    <int, Color>{
+      10: Color(0xFFE5F9FF),
+      20: Color(0xFFB8D6E3),
+      30: Color(0xFF8AB5C5),
+      40: Color(0xFF5C94A7),
+      50: Color(0xFF2E7389),
+      60: Color(0xFF00445A),
+      70: Color(0xFF00384A),
+      80: Color(0xFF002C3A),
+      90: Color(0xFF00202A),
+      100: Color(_primaryValue),
+    },
+  );
+
+  // Secondary Colors
+  static const Color secondary = Color(0xFFBF8040);
+
+  static const _secondaryValue = 0xFFCB9762;
+  static MaterialColor secondaryShades = const MaterialColor(
+    _secondaryValue,
+    <int, Color>{
+      10: Color(0xFFF9F2EC),
+      20: Color(0xFFEFDCC8),
+      30: Color(0xFFDFC8B6),
+      40: Color(0xFFCFB099),
+      50: Color(_secondaryValue),
+    },
+  );
+
+  // grey shades
+  static const int _greyValue = 0xFF080808;
+  static MaterialColor greyShade = const MaterialColor(
+    _greyValue,
+    <int, Color>{
+      10: Color(0xFFF2F2F2),
+      12: Color(0xFFE7E7E7),
+      20: Color(0xFFDEDEDE),
+      26: Color(0xFFC3C3C3),
+      30: Color(0xFFB3B3B3),
+      38: Color(0xFF9F9F9F),
+      40: Color(0xFF8E8E8E),
+      45: Color(0xFF7E7E7E),
+      50: Color(0xFF727272),
+      60: Color(0xFF666666),
+      70: Color(0xFF393939),
+      80: Color(0xFF202020),
+      90: Color(0xFF101010),
+      100: Color(_greyValue),
+    },
+  );
+
+  // On Primary
+  static const Color onPrimary = Colors.white;
+
+  // Validation Colors:
+  static const Color error = Color(0xFFFF0000);
+  static const Color warning = Color(0xFFE7D215);
+  static const Color success = Color(0xFF31A638);
+
+  static const Color errorContainer = Color(0xFFFFE0E0);
+  static const Color warningContainer = Color(0xFFFFF7D6);
+  static const Color successContainer = Color(0xFFEDF7EE);
 
   // Background Color
   static const Color background = Colors.white;
@@ -18,68 +83,36 @@ class LightThemeColors {
   static const Color dialogBackground = Colors.white;
 
   // Surface Colors
-  static const Color primaryContainer = Color(0xFFF9F9F9);
-
-  // Accent Colors
+  static Color primaryContainer = primaryShade[20]!;
+  static Color secondaryContainer = secondaryShades[20]!;
+  static Color tertiaryContainer = primaryShade[40]!;
+  static Color disabledContainer = greyShade[20]!;
+  static Color disabledButton = greyShade[38]!;
+  // validation Surface Colors
 
   // Text Colors
-  static const _primaryValue = 0xFF000000;
-  static MaterialColor primaryText = MaterialColor(
-    _primaryValue,
-    <int, Color>{
-      10: const Color(_primaryValue).withOpacity(0.1),
-      20: const Color(_primaryValue).withOpacity(0.2),
-      30: const Color(_primaryValue).withOpacity(0.3),
-      40: const Color(_primaryValue).withOpacity(0.4),
-      50: const Color(_primaryValue).withOpacity(0.5),
-      60: const Color(_primaryValue).withOpacity(0.6),
-      70: const Color(_primaryValue).withOpacity(0.7),
-      80: const Color(_primaryValue).withOpacity(0.8),
-      90: const Color(_primaryValue).withOpacity(0.9),
-      100: const Color(_primaryValue),
-    },
-  );
-
-  static const secondaryText = Color(0xFF616161);
-
-  static const onPrimaryValue = 0xFFFFFFFF;
-  static MaterialColor onPrimary = MaterialColor(
-    onPrimaryValue,
-    <int, Color>{
-      10: const Color(onPrimaryValue).withOpacity(0.1),
-      20: const Color(onPrimaryValue).withOpacity(0.2),
-      30: const Color(onPrimaryValue).withOpacity(0.3),
-      40: const Color(onPrimaryValue).withOpacity(0.4),
-      50: const Color(onPrimaryValue).withOpacity(0.5),
-      60: const Color(onPrimaryValue).withOpacity(0.6),
-      70: const Color(onPrimaryValue).withOpacity(0.7),
-      80: const Color(onPrimaryValue).withOpacity(0.8),
-      90: const Color(onPrimaryValue).withOpacity(0.9),
-      100: const Color(onPrimaryValue),
-    },
-  );
-
-  static Color hintText = primaryText[30]!;
-
-  // Validation Colors:
-  static const Color error = Color(0xFFD22F27);
-  static const Color success = Color(0xFFAA7D49);
+  static const Color tertiaryText = Color(0xFF2D2D2D);
+  static Color hintText = greyShade[50]!;
+  static Color unActive = greyShade[40]!;
+  static Color tabBarText = greyShade[45]!;
 
   // Icons Colors
-  static Color unselectedIcon = primaryText[70]!;
+  static Color unselectedIcon = greyShade[50]!;
   static Color selectedIcon = primary;
+  static Color onBackgroundIcon = greyShade[100]!;
+  static Color primaryIcon = primary;
 
   // border Colors
-  static Color border = primaryText[30]!;
-  static Color inputFieldBorder = primaryText[20]!;
-  static Color borderVariant = const Color(0xFFD4DDE0).withOpacity(0.6);
+  static const Color dividerColor = Color(0xFFDADADA);
+  static Color border = greyShade[45]!;
+  static Color disabledBorder = greyShade[50]!;
+  static Color borderVariant = greyShade[26]!;
+  static Color inputFieldBorder = greyShade[20]!;
 
   // shadow
-  static Color shadowBottomSheet = Colors.black.withOpacity(0.5);
-  static Color shadow = Colors.black.withOpacity(0.2);
-
+  static Color shadowBottomSheet = Colors.black.withOpacity(0.1);
+  static Color shadow = Colors.black.withOpacity(0.18);
   // gradient
-  static const List<Color> gradientPrimary = [Color(0xFF262A2E), Color(0xFF131313)];
 }
 
 class LightTheme {
@@ -91,44 +124,44 @@ class LightTheme {
       useMaterial3: true,
       brightness: Brightness.light,
       visualDensity: VisualDensity.adaptivePlatformDensity,
-      fontFamily: GoogleFonts.cairo().fontFamily,
-      cardColor: LightThemeColors.primaryContainer,
+      fontFamily: TextStylesManager.font.fontFamily,
+      cardColor: LightThemeColors.disabledContainer,
       //* Card Theme *//
 
       //* Color Scheme
-      colorScheme: const ColorScheme(
+      colorScheme: ColorScheme(
         brightness: Brightness.light,
         primary: LightThemeColors.primary,
-        onPrimary: Color(0xFFFFFFFF),
-        primaryContainer: Color(0xFFFFDAD6),
-        onPrimaryContainer: Color(0xFF410002),
-        secondary: Color(0xFF00629E),
-        onSecondary: Color(0xFFFFFFFF),
-        secondaryContainer: Color(0xFFCFE5FF),
-        onSecondaryContainer: Color(0xFF001D34),
-        tertiary: Color(0xFF9C423A),
-        onTertiary: Color(0xFFFFFFFF),
-        tertiaryContainer: Color(0xFFFFDAD6),
-        onTertiaryContainer: Color(0xFF410002),
+        onPrimary: LightThemeColors.onPrimary,
+        primaryContainer: LightThemeColors.primaryContainer,
+        onPrimaryContainer: const Color(0xFF001F2A),
+        secondary: LightThemeColors.secondary,
+        onSecondary: const Color(0xFFFFFFFF),
+        secondaryContainer: LightThemeColors.secondaryContainer,
+        onSecondaryContainer: const Color(0xFF2D1600),
+        tertiary: const Color(0xFF006780),
+        onTertiary: const Color(0xFFFFFFFF),
+        tertiaryContainer: LightThemeColors.tertiaryContainer,
+        onTertiaryContainer:  LightThemeColors.primaryShade[10],
         error: LightThemeColors.error,
-        errorContainer: Color(0xFFFFDAD6),
-        onError: Color(0xFFFFFFFF),
-        onErrorContainer: Color(0xFF410002),
-        background: Color(0xFFF8FDFF),
-        onBackground: Color(0xFF001F25),
-        surface: Color(0xFFF8FDFF),
-        onSurface: Color(0xFF001F25),
-        surfaceVariant: Color(0xFFF5DDDA),
-        onSurfaceVariant: Color(0xFF534341),
-        outline: Color(0xFF857371),
-        onInverseSurface: Color(0xFFD6F6FF),
-        inverseSurface: Color(0xFF00363F),
-        inversePrimary: Color(0xFFFFB4AB),
-        shadow: Color(0xFF000000),
-        // app bar color on scroll
-        surfaceTint: Color(0xFFFFFFFF),
-        outlineVariant: Color(0xFFD8C2BF),
-        scrim: Color(0xFF000000),
+        errorContainer: LightThemeColors.errorContainer,
+        onError: const Color(0xFFFFFFFF),
+        onErrorContainer: const Color(0xFF410002),
+        background: const Color(0xFFF8FDFF),
+        onBackground: const Color(0xFF001F25),
+        surface: const Color(0xFFF8FDFF),
+        onSurface: const Color(0xFF001F25),
+        surfaceVariant: const Color(0xFFDCE4E9),
+        onSurfaceVariant: const Color(0xFF40484C),
+        outline: const Color(0xFF70787D),
+        onInverseSurface: const Color(0xFFD6F6FF),
+        inverseSurface: const Color(0xFF00363F),
+        inversePrimary: const Color(0xFF6BD2FF),
+        shadow: const Color(0xFF000000),
+        // app bar on scroll color
+        surfaceTint: const Color(0xFFFFFFFF),
+        outlineVariant: const Color(0xFFC0C8CD),
+        scrim: const Color(0xFF000000),
       ),
 
       //* App Bar Theme
@@ -137,41 +170,47 @@ class LightTheme {
         centerTitle: false,
         scrolledUnderElevation: 0,
         backgroundColor: LightThemeColors.background,
-        titleTextStyle: TextStylesManager.cairoSemiBold.copyWith(fontSize: FontSize.s20),
-        iconTheme: IconThemeData(color: LightThemeColors.primaryText),
+        titleTextStyle: TextStylesManager.font.copyWith(fontSize: FontSize.s20),
+        iconTheme: IconThemeData(color: LightThemeColors.onBackgroundIcon),
       ),
 
       //* Text Theme
       textTheme: TextTheme(
         // Display
-        displayLarge: TextStylesManager.cairo.copyWith(color: LightThemeColors.primary),
+        displayLarge: TextStylesManager.font.copyWith(color: LightThemeColors.primary),
+        displayMedium: TextStylesManager.font.copyWith(color: LightThemeColors.primaryShade[80]),
+        displaySmall: TextStylesManager.font.copyWith(color: LightThemeColors.tertiaryText),
 
         // Header
-        headlineLarge: TextStylesManager.cairo.copyWith(color: LightThemeColors.onPrimary),
-        headlineMedium: TextStylesManager.cairo.copyWith(color: LightThemeColors.onPrimary[70]),
-        headlineSmall: TextStylesManager.cairo.copyWith(color: LightThemeColors.onPrimary[50]),
+        headlineLarge: TextStylesManager.font.copyWith(color: LightThemeColors.error),
+        headlineMedium: TextStylesManager.font.copyWith(color: LightThemeColors.success),
+        headlineSmall: TextStylesManager.font.copyWith(color: LightThemeColors.warning),
 
         // Title
-        titleLarge: TextStylesManager.cairo.copyWith(color: LightThemeColors.primaryText),
-        titleMedium: TextStylesManager.cairo.copyWith(color: LightThemeColors.primaryText[70]),
-        titleSmall: TextStylesManager.cairo.copyWith(color: LightThemeColors.primaryText[50]),
+        titleLarge: TextStylesManager.font.copyWith(color: LightThemeColors.secondary),
+        titleMedium: TextStylesManager.font.copyWith(color: LightThemeColors.greyShade),
+        titleSmall: TextStylesManager.font.copyWith(color: LightThemeColors.onPrimary),
 
-        // Body Text
-        bodyLarge: TextStylesManager.cairo.copyWith(color: LightThemeColors.primaryText[30]),
-        bodyMedium: TextStylesManager.cairo.copyWith(color: LightThemeColors.primaryText[20]),
-        bodySmall: TextStylesManager.cairo.copyWith(color: LightThemeColors.secondaryText),
+        // Body
+        bodyLarge: TextStylesManager.font.copyWith(color: LightThemeColors.greyShade[50]),
+        bodyMedium: TextStylesManager.font.copyWith(color: LightThemeColors.greyShade[45]),
+        bodySmall: TextStylesManager.font.copyWith(color: LightThemeColors.greyShade[40]),
 
         // label
-        labelLarge: TextStylesManager.cairo.copyWith(color: LightThemeColors.success),
-        labelMedium: TextStylesManager.cairo.copyWith(color: LightThemeColors.error),
+        labelLarge: TextStylesManager.font.copyWith(color: LightThemeColors.greyShade[38]),
+        labelMedium: TextStylesManager.font.copyWith(color: LightThemeColors.greyShade[30]),
+        labelSmall: TextStylesManager.font.copyWith(color: LightThemeColors.greyShade[26]),
       ),
 
-      //*  bottomNavigationBarTheme        //*  bottomNavigationBarTheme
+      // Icon Theme
+      iconTheme: IconThemeData(color: LightThemeColors.onBackgroundIcon),
+
+      //*  bottomNavigationBarTheme
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         elevation: 0,
         type: BottomNavigationBarType.fixed,
-        selectedLabelStyle: TextStylesManager.cairo.regular.s10.setColor(LightThemeColors.selectedIcon),
-        unselectedLabelStyle: TextStylesManager.cairo.regular.s10.setColor(LightThemeColors.unselectedIcon),
+        selectedLabelStyle: TextStylesManager.font.regular.s10.setColor(LightThemeColors.selectedIcon),
+        unselectedLabelStyle: TextStylesManager.font.regular.s10.setColor(LightThemeColors.unselectedIcon),
         backgroundColor: LightThemeColors.background,
         selectedItemColor: LightThemeColors.selectedIcon,
         unselectedItemColor: LightThemeColors.unselectedIcon,
@@ -188,14 +227,16 @@ class LightTheme {
         indicatorSize: TabBarIndicatorSize.tab,
         indicator: BoxDecoration(
           color: LightThemeColors.primary,
-          borderRadius: BorderRadius.circular(AppSize.mainRadius),
+          borderRadius: BorderRadius.circular(100),
         ),
         indicatorColor: Colors.transparent,
+        overlayColor: MaterialStateProperty.all(Colors.transparent),
+        // splashFactory: InkRipple.splashFactory,
         dividerColor: Colors.transparent,
         labelColor: LightThemeColors.onPrimary,
-        unselectedLabelColor: LightThemeColors.primaryText,
-        labelStyle: TextStylesManager.cairo.s16,
-        unselectedLabelStyle: TextStylesManager.cairo.s16,
+        unselectedLabelColor: LightThemeColors.tabBarText,
+        labelStyle: TextStylesManager.font.s14.medium,
+        unselectedLabelStyle: TextStylesManager.font.s14.medium.setColor(LightThemeColors.tabBarText),
       ),
 
       //* ElevatedButtonThemeData
@@ -210,20 +251,17 @@ class LightTheme {
       textButtonTheme: const TextButtonThemeData(),
 
       //* dividerTheme
-      dividerTheme: DividerThemeData(
-        thickness: 1,
-        color: LightThemeColors.inputFieldBorder,
-      ),
+      dividerTheme: const DividerThemeData(thickness: 1, color: LightThemeColors.dividerColor),
 
       expansionTileTheme: ExpansionTileThemeData(
-        iconColor: LightThemeColors.primaryText,
-        textColor: LightThemeColors.primaryText,
+        iconColor: LightThemeColors.onBackgroundIcon,
+        textColor: LightThemeColors.greyShade,
       ),
 
       //* Input Decoration Theme
       inputDecorationTheme: InputDecorationTheme(
         contentPadding: const EdgeInsets.symmetric(horizontal: AppSize.s16, vertical: AppSize.s16),
-        hintStyle: TextStylesManager.cairo.regular.s16.ellipsis.setColor(LightThemeColors.hintText),
+        hintStyle: TextStylesManager.font.regular.s14.ellipsis.setColor(LightThemeColors.hintText),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(AppSize.inputBorderRadius),
           borderSide: BorderSide(color: LightThemeColors.inputFieldBorder),

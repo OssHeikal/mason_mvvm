@@ -1,6 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'widget_extensions.dart';
+import '../../resources/resources.dart';
+import 'all_extensions.dart';
 
 bool hasMatch(String? s, String p) {
   return (s == null) ? false : RegExp(p).hasMatch(s);
@@ -10,12 +12,20 @@ extension StringExtension on String? {
   /// Check email validation
   bool validateEmail() => hasMatch(this, Patterns.email);
 
+  /// Check password validation
+  bool validatePassword() => hasMatch(this, Patterns.passwordPattern);
+
+  /// Check saudi phone validation
+  bool validateSaudiPhoneNumber() => hasMatch(this, Patterns.saudiPhoneNumber);
+
   /// Check phone validation
   bool validatePhone() => hasMatch(this, Patterns.phone);
 
   bool validateImage() => hasMatch(this, Patterns.image);
 
   bool validateName() => hasMatch(this, Patterns.name);
+
+  bool validateSpecialCharacters() => hasMatch(this, Patterns.specialCharacters);
 
   /// Check URL validation
   bool validateURL() => hasMatch(this, Patterns.url);
@@ -36,6 +46,22 @@ extension StringExtension on String? {
     } else {
       return this!;
     }
+  }
+
+  String removeSpaces() {
+    return this!.replaceAll(' ', '');
+  }
+
+  String removeSpecialCharacters() {
+    return this!.replaceAll(RegExp(r'[^\w\s]+'), '');
+  }
+
+  String removeSpacesAndSpecialCharacters() {
+    return this!.replaceAll(RegExp(r'[^\w\s]+'), '').replaceAll(' ', '');
+  }
+
+  String remove(String value) {
+    return this!.replaceAll(value, '');
   }
 
   SizedBox toSvg({double? height, double? width, ColorFilter? colorFilter, Color? color}) {
@@ -98,6 +124,62 @@ extension StringExtension on String? {
       return defaultValue;
     }
   }
+
+  String get capitalize {
+    if (isEmptyOrNull) {
+      return '';
+    }
+    return '${this![0].toUpperCase()}${this!.substring(1)}';
+  }
+
+  String get capitalizeFirstOfEach {
+    if (isEmptyOrNull) {
+      return '';
+    }
+    return this!.split(' ').map((str) => str.capitalize).join(' ');
+  }
+
+  String getInitials() {
+    if (isEmptyOrNull) {
+      return '';
+    }
+    return this!.split(' ').map((e) => e[0]).join();
+  }
+
+  bool isArabicWord() {
+    if (isEmptyOrNull) {
+      return false;
+    }
+    return RegExp(r'[\u0621-\u064A]').hasMatch(this!);
+  }
+
+  String getInitial() {
+    if (isEmptyOrNull) {
+      return '';
+    }
+    return this![0];
+  }
+
+  // get first letter of first name and last name
+  String getInitialsOfName() {
+    if (isEmptyOrNull) {
+      return '';
+    }
+    final List<String> names = this!.split(' ');
+    if (isArabicWord()) {
+      return names[0][0];
+    } else {
+      if (names.length == 1) {
+        return names[0][0].toUpperCase();
+      } else {
+        if (names[1].isEmptyOrNull) {
+          return names[0][0].toUpperCase();
+        } else {
+          return '${names[0][0]}${names[1][0]}'.toUpperCase();
+        }
+      }
+    }
+  }
 }
 
 class Patterns {
@@ -106,13 +188,28 @@ class Patterns {
 
   static String phone = r'(^(?:[+0]9)?[0-9]{10,12}$)';
 
-  static String money = r'^\d{0,8}(\.\d{1,4})?$';
+  static String saudiPhoneNumber = r'^05[0-9]{8}$';
+
+  static String passwordPattern =
+      r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>])[A-Za-z\d!@#$%^&*(),.?":{}|<>]{8,200}$';
+
+  static String money = r'^\d{1,3}(,\d{3})*(\.\d+)?$';
+
+  // and arabic letters
+  static String specialCharacters = r'[!@#$%^&*(),.?":{}|<>]';
 
   static String email = r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+";
 
   static String image = r'.(jpeg|jpg|gif|png|bmp)$';
 
-  static String name = r'[!@#%^&*(),.?":{}|<>]';
+  // static String name = r'[!@#%^&*(),.?":{}|<>]';
+
+  // english and arabic letters
+  static String name = r'^[a-zA-Z\u0621-\u064A]+(?:[\s-][a-zA-Z\u0621-\u064A]+)*$';
+
+  // static String name = r'^[a-zA-Z\u0621-\u064A]+(?:[\s-][a-zA-Z\u0621-\u064A]+)*$';
+
+  // static String name = r'^[a-zA-Z]+(?:[\s-][a-zA-Z]+)*$';
 
   /// Excel regex
   static String excel = r'.(xls|xlsx)$';
@@ -122,4 +219,85 @@ class Patterns {
 
   /// Price regex
   static String price = r'(\d{1,3})(?=(\d{3})+(?!\d))';
+}
+
+class Validator {
+  static String? validateEmail(String? value) {
+    if (value == null || value.isEmpty || !value.validateEmail()) {
+      return LocaleKeys.validator_email.tr();
+    }
+    return null;
+  }
+
+  static String? validatePhoneSa(String? value) {
+    if (value == null || value.isEmpty) {
+      return LocaleKeys.validator_phone.tr();
+    }
+    if (!value.validateSaudiPhoneNumber()) {
+      return LocaleKeys.validator_phone.tr();
+    }
+    return null;
+  }
+
+  static String? validatePassword(String? value) {
+    if (value == null || value.length < 8 || value.length > 200) {
+      return LocaleKeys.validator_password.tr();
+    } else if (!value.validatePassword()) {
+      return LocaleKeys.validator_password_pattern.tr();
+    }
+    return null;
+  }
+
+  static String? validateConfirmPassword(String? value, String? password) {
+    if (value == null || value.isEmpty || value != password) {
+      return LocaleKeys.validator_confirm_password.tr();
+    }
+    return null;
+  }
+
+  static String? validateName(String? value) {
+    final name = value?.trim();
+    if (name == null || name.isEmpty || name.replaceAll(" ", "").length < 3) {
+      return LocaleKeys.validator_name.tr();
+    } else if (!name.validateName() || name.validateSpecialCharacters() || name.isDigit()) {
+      return LocaleKeys.validator_name_pattern.tr();
+    }
+    return null;
+  }
+  // static String? validateName(String? value) {
+  //   if (value == null || value.isEmpty || value.length < 3) {
+  //     return LocaleKeys.validator_name.tr();
+  //   } else if (!value.validateName() || value.validateSpecialCharacters()) {
+  //     return LocaleKeys.validator_name_pattern.tr();
+  //   }
+  //   return null;
+  // }
+
+  static String? validateEmpty(String? value) {
+    if (value == null || value.trim().isEmpty) {
+      return LocaleKeys.validator_required.tr();
+    }
+    return null;
+  }
+
+  static String? validateOTP(String? value) {
+    if (value == null || value.isEmpty || value.length < 4) {
+      return LocaleKeys.validator_otp.tr();
+    }
+    return null;
+  }
+
+  static String? validateBirthDate(DateTime? value) {
+    if (value == null) {
+      return LocaleKeys.validator_birth_date.tr();
+    }
+    return null;
+  }
+
+  static String? validateLatLng(double? value) {
+    if (value == null) {
+      return LocaleKeys.validator_location.tr();
+    }
+    return null;
+  }
 }

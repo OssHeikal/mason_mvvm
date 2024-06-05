@@ -1,19 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:gomla_plus/core/resources/gen/fonts.gen.dart';
 
 import '../config/extensions/all_extensions.dart';
 import '../config/theme/light_theme.dart';
 import '../widgets/custom_input_field.dart';
 import 'resources.dart';
 
-
 class TextStylesManager {
   const TextStylesManager._();
-  static TextStyle cairo = GoogleFonts.cairo();
-  static TextStyle cairoRegular = GoogleFonts.cairo().regular;
-  static TextStyle cairoMedium = GoogleFonts.cairo().medium;
-  static TextStyle cairoSemiBold = GoogleFonts.cairo().semiBold;
-  static TextStyle cairoBold = GoogleFonts.cairo().bold;
+  static TextStyle font = const TextStyle(fontFamily: FontFamily.teshrin);
 }
 
 class ShadowStyles {
@@ -28,10 +23,36 @@ class ShadowStyles {
   ];
 
   static List<BoxShadow> cardShadow = [
-    BoxShadow(
-      color: LightThemeColors.shadow,
+    const BoxShadow(
+      color: Color(0x23000000),
       blurRadius: 8,
-      offset: const Offset(0, 1),
+      offset: Offset(0, 0),
+      spreadRadius: 0,
+    )
+  ];
+
+  static List<BoxShadow> tabBarShadow = [
+    BoxShadow(
+      blurStyle: BlurStyle.inner,
+      color: Colors.black.withOpacity(0.12),
+      blurRadius: 10,
+      offset: const Offset(-1, -1),
+      spreadRadius: 0,
+    ),
+    BoxShadow(
+      blurStyle: BlurStyle.inner,
+      color: Colors.black.withOpacity(0.12),
+      blurRadius: 10,
+      offset: const Offset(1, 1),
+      spreadRadius: 0,
+    )
+  ];
+
+  static List<BoxShadow> tileShadow = [
+    const BoxShadow(
+      color: Color(0x1E000000),
+      blurRadius: 10,
+      offset: Offset(0, 0),
       spreadRadius: 0,
     )
   ];
@@ -39,12 +60,6 @@ class ShadowStyles {
 
 class GradientStyles {
   const GradientStyles._();
-
-  static LinearGradient primaryGradient = const LinearGradient(
-    begin: Alignment.topCenter,
-    end: Alignment.bottomCenter,
-    colors: LightThemeColors.gradientPrimary,
-  );
 }
 
 class InputDecorations {
@@ -65,7 +80,7 @@ class InputDecorations {
       hintText: hint,
       fillColor: fillColor,
       contentPadding: const EdgeInsets.symmetric(horizontal: AppSize.s16, vertical: AppSize.s16),
-      hintStyle: TextStylesManager.cairo.regular.s16.ellipsis.setColor(LightThemeColors.hintText),
+      hintStyle: TextStylesManager.font.regular.s16.ellipsis.setColor(LightThemeColors.hintText),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(AppSize.inputBorderRadius),
         borderSide: BorderSide.none,
@@ -105,37 +120,46 @@ class InputDecorations {
 
   static InputDecoration outlined({
     String? hint,
+    String? label,
     Widget? prefixIcon,
     Widget? suffixIcon,
     bool isPassword = false,
     bool obscuredValue = true,
     bool smallSuffixIcon = false,
+    Color fillColor = LightThemeColors.background,
+    Color? borderColor,
+    Color? focusedBorderColor,
+    bool isDense = false,
     required ValueNotifier<bool> obscure,
+    BorderRadius? borderRadius,
   }) {
     return InputDecoration(
       filled: true,
       hintText: hint,
+      labelText: label,
+      isDense: isDense,
+      labelStyle: TextStylesManager.font.regular.s12.ellipsis.setColor(LightThemeColors.unActive),
       fillColor: LightThemeColors.background,
-      contentPadding: const EdgeInsets.symmetric(horizontal: AppSize.s16, vertical: AppSize.s16),
-      hintStyle: TextStylesManager.cairo.regular.s16.ellipsis.setColor(LightThemeColors.hintText),
+      contentPadding: const EdgeInsets.symmetric(horizontal: AppSize.s16, vertical: AppSize.s10),
+      hintStyle: TextStylesManager.font.regular.s14.ellipsis.setColor(LightThemeColors.unActive),
       border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(AppSize.inputBorderRadius),
+        borderRadius: borderRadius ?? BorderRadius.circular(AppSize.inputBorderRadius),
         borderSide: BorderSide(color: LightThemeColors.inputFieldBorder),
       ),
       focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(AppSize.inputBorderRadius),
-        borderSide: const BorderSide(color: LightThemeColors.primary),
+        borderRadius: borderRadius ?? BorderRadius.circular(AppSize.inputBorderRadius),
+        borderSide: BorderSide(color: focusedBorderColor ?? LightThemeColors.primary),
       ),
       enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(AppSize.inputBorderRadius),
-        borderSide: BorderSide(color: LightThemeColors.inputFieldBorder),
+        borderRadius: borderRadius ?? BorderRadius.circular(AppSize.inputBorderRadius),
+        borderSide: BorderSide(color: borderColor ?? LightThemeColors.inputFieldBorder),
       ),
       errorBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(AppSize.inputBorderRadius),
+        borderRadius: borderRadius ?? BorderRadius.circular(AppSize.inputBorderRadius),
         borderSide: const BorderSide(color: LightThemeColors.error),
       ),
       focusedErrorBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(AppSize.inputBorderRadius),
+        borderRadius: borderRadius ?? BorderRadius.circular(AppSize.inputBorderRadius),
         borderSide: const BorderSide(color: LightThemeColors.error),
       ),
       prefixIconConstraints: smallSuffixIcon ? const BoxConstraints(maxWidth: .15) : null,
@@ -143,14 +167,12 @@ class InputDecorations {
       prefixIcon: prefixIcon,
       suffixIcon: isPassword
           ? obscuredValue
-              ? Icon(
-                  Icons.visibility_outlined,
-                  color: LightThemeColors.hintText,
-                ).onTap(() => obscure.value = !obscuredValue)
-              : Icon(
-                  Icons.visibility_off_outlined,
-                  color: LightThemeColors.hintText,
-                ).onTap(() => obscure.value = !obscuredValue)
+              ? Assets.icons.eyeOn.path
+                  .toSvg(color: LightThemeColors.hintText)
+                  .onTap(() => obscure.value = !obscuredValue)
+              : Assets.icons.eyeOff.path
+                  .toSvg(color: LightThemeColors.hintText)
+                  .onTap(() => obscure.value = !obscuredValue)
           : suffixIcon,
     );
   }
@@ -170,7 +192,7 @@ class InputDecorations {
       hintText: hint,
       fillColor: fillColor,
       contentPadding: const EdgeInsets.symmetric(horizontal: AppSize.s16, vertical: AppSize.s16),
-      hintStyle: TextStylesManager.cairo.regular.s16.ellipsis.setColor(LightThemeColors.hintText),
+      hintStyle: TextStylesManager.font.regular.s16.ellipsis.setColor(LightThemeColors.hintText),
       border: UnderlineInputBorder(borderSide: BorderSide(color: LightThemeColors.inputFieldBorder)),
       focusedBorder: const UnderlineInputBorder(borderSide: BorderSide(color: LightThemeColors.primary)),
       enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: LightThemeColors.inputFieldBorder)),
@@ -198,12 +220,17 @@ class InputDecorations {
     required ValueNotifier<bool> obscure,
     bool? obscureValue,
     String? hint,
+    String? label,
     Widget? prefixIcon,
     Widget? suffixIcon,
     bool isPassword = false,
     bool obscuredValue = true,
     bool smallSuffixIcon = false,
+    Color? borderColor,
+    Color? focusedBorderColor,
+    bool isDense = false,
     Color fillColor = LightThemeColors.background,
+    BorderRadius? borderRadius,
   }) {
     switch (decorationType) {
       case DecorationType.underlined:
@@ -220,12 +247,18 @@ class InputDecorations {
       case DecorationType.outlined:
         return InputDecorations.outlined(
           hint: hint,
+          label: label,
           obscure: obscure,
           prefixIcon: prefixIcon,
           suffixIcon: suffixIcon,
           isPassword: isPassword,
           obscuredValue: obscuredValue,
           smallSuffixIcon: smallSuffixIcon,
+          fillColor: fillColor,
+          borderColor: borderColor,
+          isDense: isDense,
+          focusedBorderColor: focusedBorderColor,
+          borderRadius: borderRadius,
         );
       case DecorationType.filled:
         return InputDecorations.filled(

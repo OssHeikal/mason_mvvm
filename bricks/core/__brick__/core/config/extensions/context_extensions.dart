@@ -19,6 +19,17 @@ extension ContextExtensions on BuildContext {
   /// return screen devicePixelRatio
   double get pixelRatio => MediaQuery.of(this).devicePixelRatio;
 
+  double responsiveHeight({
+    required double regular,
+    double? large,
+  }) {
+    if (isBigPhone) {
+      return large ?? regular;
+    } else {
+      return regular;
+    }
+  }
+
   /// returns brightness
   Brightness platformBrightness() => MediaQuery.of(this).platformBrightness;
 
@@ -49,7 +60,9 @@ extension ContextExtensions on BuildContext {
   void unFocus(FocusNode focus) => focus.unfocus();
 
   /// Return the height of status bar
-  bool get isArabic => locale == const Locale('ar');
+  bool get isArabic => locale == const Locale('ar', 'EG');
+
+  bool get isBigPhone => MediaQuery.of(this).size.longestSide >= 750;
 
   bool isPhone() => MediaQuery.of(this).size.width < tabletBreakpointGlobal;
 
@@ -76,50 +89,8 @@ extension ContextExtensions on BuildContext {
   void openEndDrawer() => Scaffold.of(this).openEndDrawer();
 
   bool get canPopScreen => GoRouter.of(this).canPop();
-}
 
-extension ThemeExtension on BuildContext {
-  ThemeData get theme => Theme.of(this);
+  double get keyboardPadding => MediaQuery.of(this).viewInsets.bottom;
 
-  // ColorScheme
-  ColorScheme get colorScheme => theme.colorScheme;
-  Color get primaryColor => theme.colorScheme.primary;
-  Color get secondaryColor => theme.colorScheme.secondary;
-
-  Color get primaryCardColor => theme.cardColor;
-  Color get secondaryCardColor => theme.cardTheme.color!;
-
-  Color get scaffoldBackgroundColor => theme.scaffoldBackgroundColor;
-  Color get bottomSheetBackground => theme.bottomSheetTheme.backgroundColor!;
-
-  Color get errorColor => theme.colorScheme.error;
-  Color get errorContainerColor => theme.colorScheme.errorContainer;
-
-  Color get fillColor => theme.inputDecorationTheme.fillColor!;
-  Color get hintColor => theme.inputDecorationTheme.hintStyle!.color!;
-  Color get borderColor => theme.inputDecorationTheme.border!.borderSide.color;
-
-  Color get bottomNavBarSelectedItemColor => theme.bottomNavigationBarTheme.selectedItemColor!;
-
-  TextStyle? get hintTextStyle => theme.inputDecorationTheme.hintStyle;
-
-  IconThemeData? get iconTheme => theme.appBarTheme.iconTheme;
-
-  // TextTheme
-  TextTheme get textTheme => theme.textTheme;
-  TextStyle? get displayLarge => textTheme.displayLarge;
-  TextStyle? get displayMedium => textTheme.displayMedium;
-  TextStyle? get displaySmall => textTheme.displaySmall;
-  TextStyle? get headlineLarge => textTheme.headlineLarge;
-  TextStyle? get headlineMedium => textTheme.headlineMedium;
-  TextStyle? get headlineSmall => textTheme.headlineSmall;
-  TextStyle? get titleLarge => textTheme.titleLarge;
-  TextStyle? get titleMedium => textTheme.titleMedium;
-  TextStyle? get titleSmall => textTheme.titleSmall;
-  TextStyle? get bodyLarge => textTheme.bodyLarge;
-  TextStyle? get bodyMedium => textTheme.bodyMedium;
-  TextStyle? get bodySmall => textTheme.bodySmall;
-  TextStyle? get labelLarge => textTheme.labelLarge;
-  TextStyle? get labelMedium => textTheme.labelMedium;
-  TextStyle? get labelSmall => textTheme.labelSmall;
+  String get languageCode => '${locale.languageCode}_${locale.countryCode}';
 }

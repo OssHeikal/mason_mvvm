@@ -5,5 +5,3 @@ class RemoteUrls {
   /// Base url for the images
   static const String imagesUrl = '';
 }
-
-class ParamsKeys {}

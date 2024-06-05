@@ -1,5 +1,5 @@
 import '../../resources/type_defs.dart';
-import '../dio/dio_client.dart';
+import '../client/api_client.dart';
 import 'package:injectable/injectable.dart';
 
 /// Add your remote data source methods here
