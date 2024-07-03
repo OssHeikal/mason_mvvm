@@ -142,7 +142,6 @@ dependencies:
   animated_flip_counter: ^0.3.4
   flutter_widget_from_html: ^0.14.11
   rename: ^3.0.2
-  flutter_inappwebview:
   flutter_local_notifications: ^17.1.2
   firebase_core: ^2.32.0
   firebase_messaging: ^14.9.4

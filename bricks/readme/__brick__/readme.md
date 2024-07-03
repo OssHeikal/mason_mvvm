@@ -16,12 +16,15 @@ dependencies:
   dartz:
   easy_localization:
   equatable:
+  firebase_core: ^2.32.0
+  firebase_messaging: ^14.9.4
   flutter:
     sdk: flutter
   flutter_bloc:
+  flutter_local_notifications: ^17.1.2
+  flutter_screenutil:
   flutter_secure_storage: 9.0.0
   flutter_svg:
-  flutter_screenutil:
   get_it:
   go_router:
   google_fonts:
@@ -52,10 +55,7 @@ dependencies:
   animated_flip_counter: ^0.3.4
   flutter_widget_from_html: ^0.14.11
   rename: ^3.0.2
-  flutter_inappwebview:
-  flutter_local_notifications: ^17.1.2
-  firebase_core: ^2.32.0
-  firebase_messaging: ^14.9.4
+
 ```
 
 ### generate project template:
@@ -160,7 +160,7 @@ flutter pub run flutter_launcher_icons
 ### generate file that contains localization keys:
 
 ```shell
-flutter pub run easy_localization:generate -S "assets/lang" -O "lib/core/resources/gen" -o "locale_keys.g.dart" -f keys
+dart run easy_localization:generate -S "assets/lang" -O "lib/core/resources/gen" -o "locale_keys.g.dart" -f keys
 ```
 
 ## ignore mason files 
