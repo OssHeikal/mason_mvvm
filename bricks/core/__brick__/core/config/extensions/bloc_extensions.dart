@@ -1,8 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:plus_app/features/shared/presentation/view/widgets/error_view.dart';
 
 import '../../resources/cubit_status.dart';
-import '../../widgets/custom_loading.dart';
 import 'all_extensions.dart';
 
 extension CubitStatusEx on CubitStatus {
@@ -17,11 +17,11 @@ extension CubitStatusEx on CubitStatus {
       case CubitStatus.init:
         return onInit ?? const SizedBox.shrink();
       case CubitStatus.loading:
-        return enableLoading ? onLoading ?? Scaffold(body: CustomLoading(size: 0.25.sw).center()) : onSuccess;
+        return enableLoading ? onLoading ?? Scaffold(body: const CupertinoActivityIndicator().center()) : onSuccess;
       case CubitStatus.success:
         return onSuccess;
       case CubitStatus.failed:
-        return onFailed ?? const Text('Failed');
+        return onFailed ?? const ErrorView();
     }
   }
 
@@ -59,7 +59,7 @@ extension AuthStatusEx on AuthStatus {
       case AuthStatus.unauthorized:
         return onUnauthorized ?? const SizedBox.shrink();
       case AuthStatus.loading:
-        return onLoading ?? const CustomLoading().center();
+        return onLoading ?? const CircularProgressIndicator().center();
       case AuthStatus.authorized:
         return onAuthorized;
       case AuthStatus.failed:
