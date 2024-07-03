@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../config/extensions/all_extensions.dart';
-import '../resources/resources.dart';
+import '../../config/extensions/all_extensions.dart';
+import '../../resources/resources.dart';
 
 class CustomRadioTile<T> extends StatefulWidget {
   const CustomRadioTile({
@@ -77,9 +77,9 @@ class _CustomRadioTileState<T> extends State<CustomRadioTile<T>> {
 
   TextStyle get _titleStyle {
     if (widget.isDisabled) {
-      return context.titleMedium!.s14.regular.copyWith(color: context.disabledButtonColor);
+      return context.titleMedium.s14.regular.copyWith(color: context.disabledButtonColor);
     } else {
-      return context.titleMedium!.s14.regular;
+      return context.titleMedium.s14.regular;
     }
   }
 }

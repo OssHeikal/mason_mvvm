@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
-import '../../../../core/config/theme/light_theme.dart';
-import '../config/extensions/all_extensions.dart';
-import '../resources/resources.dart';
+import '../../../../../core/config/theme/light_theme.dart';
+import '../../config/extensions/all_extensions.dart';
+import '../../resources/resources.dart';
 
 class CustomPinInputField extends StatelessWidget {
   const CustomPinInputField({

@@ -25,7 +25,7 @@ class CustomAppBar {
   }) {
     return AppBar(
       toolbarHeight: height,
-      titleTextStyle: titleStyle ?? context.titleLarge!.bold.s20,
+      titleTextStyle: titleStyle ?? context.titleLarge.bold.s20,
       iconTheme: context.iconTheme!.copyWith(color: iconColor),
       backgroundColor: backgroundColor,
       leadingWidth: leadingWidth.sp,
@@ -34,7 +34,7 @@ class CustomAppBar {
       leading: leading ??
           (removeBack || !context.canPopScreen
               ? null
-              : Assets.icons.arrowBack.path
+              : Assets.icons.arrowLeft.path
                   .toSvg(color: iconColor)
                   .center()
                   .onTap(() => context.pop(context))

@@ -15,13 +15,13 @@ class CustomSearchField extends StatelessWidget {
   Widget build(BuildContext context) {
     return SearchBar(
       leading: Assets.icons.search.path.toSvg(color: context.hintColor).paddingAll(AppSize.s4),
-      shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: AppSize.s10.borderRadius)),
-      elevation: MaterialStateProperty.all(0),
-      backgroundColor: MaterialStateProperty.all(context.primaryCardColor),
+      shape: WidgetStateProperty.all(RoundedRectangleBorder(borderRadius: AppSize.s10.borderRadius)),
+      elevation: WidgetStateProperty.all(0),
+      backgroundColor: WidgetStateProperty.all(context.primaryCardColor),
       onChanged: onChanged,
       constraints: BoxConstraints(minHeight: AppSize.s55.h),
       hintText: hintText ?? 'Search...',
-      hintStyle: MaterialStateProperty.all(context.hintTextStyle),
+      hintStyle: WidgetStateProperty.all(context.hintTextStyle),
       trailing: [Assets.icons.filter.path.toSvg().paddingAll(AppSize.s4).onTap(() => onFilter?.call())],
     );
   }

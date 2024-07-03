@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gomla_plus/core/config/extensions/all_extensions.dart';
+
+import '../../config/extensions/all_extensions.dart';
 
 class HorizontalDataView extends StatelessWidget {
   const HorizontalDataView({
@@ -19,8 +20,8 @@ class HorizontalDataView extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(title, style: titleStyle ?? context.bodySmall!.s12.regular),
-        Text(subtitle, style: subtitleStyle ?? context.titleMedium!.s12.medium),
+        Text(title, style: titleStyle ?? context.bodySmall.s12.regular),
+        Text(subtitle, style: subtitleStyle ?? context.titleMedium.s12.medium),
       ],
     );
   }

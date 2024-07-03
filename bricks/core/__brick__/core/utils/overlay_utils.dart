@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../config/extensions/context_extensions.dart';
-import '../config/extensions/widget_extensions.dart';
+import '../config/extensions/all_extensions.dart';
 import '../resources/dimensions_manager.dart';
 
 class OverlayUtils {

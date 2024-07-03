@@ -1,4 +1,4 @@
-# test
+# habl_ghaseel
 
 Short description or introduction of your project.
 
@@ -16,12 +16,15 @@ dependencies:
   dartz:
   easy_localization:
   equatable:
+  firebase_core: ^2.32.0
+  firebase_messaging: ^14.9.4
   flutter:
     sdk: flutter
   flutter_bloc:
+  flutter_local_notifications: ^17.1.2
+  flutter_screenutil:
   flutter_secure_storage: 9.0.0
   flutter_svg:
-  flutter_screenutil:
   get_it:
   go_router:
   google_fonts:
@@ -46,32 +49,57 @@ dependencies:
   pin_code_fields: ^8.0.1
   flutter_animate: ^4.5.0
   share_plus: ^7.2.2
+  infinite_scroll_pagination: ^4.0.0
+  readmore: ^3.0.0
+  carousel_slider: ^4.2.1  sticky_headers: ^0.3.0+2
+  animated_flip_counter: ^0.3.4
+  flutter_widget_from_html: ^0.14.11
+  rename: ^3.0.2
+
 ```
 
-## generate project template:
+### generate project template:
 ```shell
-mason make project_template -o .././lib
+mason make core -o .././lib
 ```
 
-## add new feature
-- run this command and then enter feature name 
+### add new feature (enter feature name)
 ```shell
-mason make feature -o .././lib/features
+mason make feature -o .././lib/features 
 ```
 
 ### generate assets folder
 ```shell
 mason make assets -o ../assets
 ```
-## Add assets paths in pubspec.yaml file
+
+### generate readme file (enter project name)
+```shell
+mason make readme -o ../
+```
+
+### Add assets and fonts paths in pubspec.yaml file
 ```yaml
   assets:
     - assets/images/
     - assets/icons/
     - assets/lang/
+
+  fonts:
+    - family: fontName 
+      fonts:
+        - asset: assets/fonts/teshrin/fontName-Light.ttf
+          weight: 300
+        - asset: assets/fonts/teshrin/fontName-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/teshrin/fontName-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/teshrin/fontName-Bold.ttf
+          weight: 600
+
 ```
 
-## generate file that contains assets variables and widgets and injectable: 
+### generate file that contains assets variables and widgets and injectable: 
 
 1. activate flutter gen 
 
@@ -83,6 +111,7 @@ dart pub global activate flutter_gen
 
 ```yaml
 dev_dependencies:
+  flutter_launcher_icons: "^0.13.1"
   build_runner:
   flutter_gen_runner:
   injectable_generator:
@@ -106,16 +135,40 @@ flutter_gen:
     lottie: true
 ```
 
-4. auto generate files like (injection.config.dart - assets.gen.dart)
+###  Launcher Icon 
+
+```yaml
+flutter_launcher_icons:
+  android: "ic_launcher"
+  ios: true
+  remove_alpha_ios: true
+  image_path: "assets/images/logo.png"
+  adaptive_icon_background: "#FFFFFF"
+```
+
+### auto generate files like (injection.config.dart - assets.gen.dart)
 
 ```shell
 dart run build_runner build
 ```
 
-## generate file that contains localization keys:
-
+## generate icon launcher 
 ```shell
-flutter pub run easy_localization:generate -S "assets/lang" -O "lib/core/resources/gen" -o "locale_keys.g.dart" -f keys
+flutter pub run flutter_launcher_icons
 ```
 
+### generate file that contains localization keys:
 
+```shell
+dart run easy_localization:generate -S "assets/lang" -O "lib/core/resources/gen" -o "locale_keys.g.dart" -f keys
+```
+
+## ignore mason files 
+
+```shell
+git update-index --skip-worktree mason/.mason/bricks.json
+
+git update-index --skip-worktree mason/mason-lock.json
+
+git update-index --skip-worktree mason/mason.yaml
+```

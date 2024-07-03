@@ -58,7 +58,7 @@ class _DropDownFieldState<T> extends State<_DropDownField<T>> {
       result.toString(),
       maxLines: widget.maxlines,
       overflow: TextOverflow.ellipsis,
-      style: context.titleLarge!.s16,
+      style: context.titleLarge.s16,
     );
   }
 

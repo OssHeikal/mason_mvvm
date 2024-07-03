@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
-import '../config/extensions/all_extensions.dart';
-import '../resources/resources.dart';
+import '../../config/extensions/all_extensions.dart';
+import '../../resources/resources.dart';
 import 'custom_button.dart';
 import 'custom_close_button.dart';
 
@@ -35,7 +35,7 @@ class CustomDialog extends StatelessWidget {
       children: [
         const CustomCloseButton(center: false),
         AppSize.s18.verticalSpace,
-        Text(title, style: context.titleMedium!.medium.s16),
+        Text(title, style: context.titleMedium.medium.s16),
         AppSize.s32.verticalSpace,
         if (showConfirm) ...[
           CustomButton(

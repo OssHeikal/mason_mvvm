@@ -7,9 +7,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../config/extensions/all_extensions.dart';
-import '../../config/theme/light_theme.dart';
-import '../../resources/resources.dart';
+import '../../../config/extensions/all_extensions.dart';
+import '../../../config/theme/light_theme.dart';
+import '../../../resources/resources.dart';
 
 export 'custom_dropdown.dart';
 
@@ -397,7 +397,7 @@ class _CustomDropdownState<T> extends State<CustomDropdown<T>> {
               },
             ),
           ),
-        ).setTitle(context, title: widget.label, titleStyle: context.titleLarge!.s16);
+        ).setTitle(context, title: widget.label, titleStyle: context.titleLarge.s16);
       },
     );
   }

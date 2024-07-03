@@ -1,8 +1,8 @@
-import 'package:al_sadeem_app/core/config/theme/light_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../../resources/resources.dart';
+import 'light_theme.dart';
 
 class AppThemeManager {
   const AppThemeManager._();
@@ -27,22 +27,22 @@ class AppThemeManager {
     Color? textColorPressed,
   }) {
     return ButtonStyle(
-      textStyle: MaterialStateProperty.all<TextStyle>(TextStylesManager.cairoMedium.copyWith(fontSize: FontSize.s16)),
-      shape: MaterialStateProperty.all<StadiumBorder>(const StadiumBorder()),
-      minimumSize: MaterialStateProperty.all<Size>(const Size(double.infinity, AppSize.buttonHeight)),
-      elevation: MaterialStateProperty.all(0),
-      padding: MaterialStateProperty.all<EdgeInsetsGeometry>(EdgeInsets.zero),
-      backgroundColor: MaterialStateProperty.resolveWith<Color>(
-        (Set<MaterialState> states) {
-          if (states.contains(MaterialState.pressed)) {
+      textStyle: WidgetStateProperty.all<TextStyle>(TextStylesManager.font.copyWith(fontSize: FontSize.s16)),
+      shape: WidgetStateProperty.all<StadiumBorder>(const StadiumBorder()),
+      minimumSize: WidgetStateProperty.all<Size>(const Size(double.infinity, AppSize.buttonHeight)),
+      elevation: WidgetStateProperty.all(0),
+      padding: WidgetStateProperty.all<EdgeInsetsGeometry>(EdgeInsets.zero),
+      backgroundColor: WidgetStateProperty.resolveWith<Color>(
+        (Set<WidgetState> states) {
+          if (states.contains(WidgetState.pressed)) {
             return buttonColorPressed ?? LightThemeColors.primary.withOpacity(.8);
           }
           return buttonColor;
         },
       ),
-      foregroundColor: MaterialStateProperty.resolveWith<Color>(
-        (Set<MaterialState> states) {
-          if (states.contains(MaterialState.pressed)) {
+      foregroundColor: WidgetStateProperty.resolveWith<Color>(
+        (Set<WidgetState> states) {
+          if (states.contains(WidgetState.pressed)) {
             return textColorPressed ?? textColor;
           }
           return textColor;

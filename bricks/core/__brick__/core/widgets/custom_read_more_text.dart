@@ -3,8 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:readmore/readmore.dart';
 
-import '../config/extensions/all_extensions.dart';
-import '../resources/resources.dart';
+import '../../config/extensions/all_extensions.dart';
+import '../../resources/resources.dart';
 
 class CustomReadMoreText extends StatelessWidget {
   const CustomReadMoreText(this.text, {super.key});
@@ -20,10 +20,10 @@ class CustomReadMoreText extends StatelessWidget {
       trimExpandedText: LocaleKeys.show_less.tr(),
       trimCollapsedText: LocaleKeys.read_more.tr(),
       isExpandable: true,
-      moreStyle: context.titleLarge!.medium.s14,
-      lessStyle: context.titleLarge!.medium.s14,
+      moreStyle: context.titleLarge.medium.s14,
+      lessStyle: context.titleLarge.medium.s14,
       trimMode: TrimMode.Line,
-      style: GoogleFonts.tajawal(fontSize: FontSize.s14, color: context.bodyLarge!.color),
+      style: GoogleFonts.tajawal(fontSize: FontSize.s14, color: context.bodyLarge.color),
     );
   }
 }

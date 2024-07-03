@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../config/extensions/all_extensions.dart';
-import '../resources/resources.dart';
+import '../../config/extensions/all_extensions.dart';
+import '../../resources/resources.dart';
 
 class CustomCheckBox extends StatefulWidget {
   const CustomCheckBox({

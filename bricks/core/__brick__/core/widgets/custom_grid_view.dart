@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../config/extensions/all_extensions.dart';
-import '../resources/resources.dart';
+import '../../config/extensions/all_extensions.dart';
+import '../../resources/resources.dart';
 
 class CustomGridView extends StatelessWidget {
   const CustomGridView({
@@ -51,7 +51,7 @@ class CustomGridView extends StatelessWidget {
       title: title,
       gap: AppSize.s8.h,
       titlePadding: AppSize.screenPadding,
-      titleStyle: titleStyle ?? context.titleMedium!.medium.s14,
+      titleStyle: titleStyle ?? context.titleMedium.medium.s14,
     );
   }
 }

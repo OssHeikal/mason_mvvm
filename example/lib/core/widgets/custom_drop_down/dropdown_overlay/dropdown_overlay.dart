@@ -92,7 +92,7 @@ class _DropdownOverlayState<T> extends State<_DropdownOverlay<T>> {
       result.toString(),
       maxLines: widget.maxlines,
       overflow: TextOverflow.ellipsis,
-      style: context.titleLarge!.s16,
+      style: context.titleLarge.s16,
     );
   }
 
@@ -101,7 +101,7 @@ class _DropdownOverlayState<T> extends State<_DropdownOverlay<T>> {
       result.toString(),
       maxLines: widget.maxlines,
       overflow: TextOverflow.ellipsis,
-      style: context.titleLarge!.s16,
+      style: context.titleLarge.s16,
     );
   }
 
@@ -236,10 +236,10 @@ class _DropdownOverlayState<T> extends State<_DropdownOverlay<T>> {
                           child: Theme(
                             data: Theme.of(context).copyWith(
                               scrollbarTheme: ScrollbarThemeData(
-                                thumbVisibility: MaterialStateProperty.all(true),
-                                thickness: MaterialStateProperty.all(5),
+                                thumbVisibility: WidgetStateProperty.all(true),
+                                thickness: WidgetStateProperty.all(5),
                                 radius: const Radius.circular(4),
-                                thumbColor: MaterialStateProperty.all(Colors.grey[300]),
+                                thumbColor: WidgetStateProperty.all(Colors.grey[300]),
                               ),
                             ),
                             child: Column(

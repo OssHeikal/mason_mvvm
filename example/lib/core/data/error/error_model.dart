@@ -6,16 +6,16 @@ class ErrorMessageModel extends Equatable {
   const ErrorMessageModel({required this.statusMessage, required this.success});
   factory ErrorMessageModel.fromJson(Map<String, dynamic> json) {
     String error = "";
-    if (json["msg"] is Map) {
-      for (var item in (json["msg"] as Map<String, dynamic>).entries) {
+    if (json["errors"] is Map) {
+      for (var item in (json["errors"] as Map<String, dynamic>).entries) {
         error = "${error.isEmpty ? "" : "$error \n"} ${item.value}";
       }
     } else {
-      error = json["msg"].toString();
+      error = json["message"].toString();
     }
     return ErrorMessageModel(
       statusMessage: error,
-      success: json["value"] ?? false,
+      success: json["success"],
     );
   }
 

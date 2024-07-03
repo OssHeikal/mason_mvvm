@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
-import '../../features/shared/presentation/view/widgets/error_view.dart';
-import '../config/extensions/all_extensions.dart';
-import '../resources/resources.dart';
+import "../../../features/shared/presentation/view/widgets/error_view.dart";
+import '../../config/extensions/all_extensions.dart';
+import '../../resources/resources.dart';
 
 class CustomPaginatedListView<T> extends StatelessWidget {
   const CustomPaginatedListView({
@@ -54,7 +54,7 @@ class CustomPaginatedListView<T> extends StatelessWidget {
           itemBuilder: itemBuilder,
           noItemsFoundIndicatorBuilder: emptyItemBuilder,
           newPageProgressIndicatorBuilder: (context) => const CupertinoActivityIndicator().center(),
-          firstPageErrorIndicatorBuilder: (context) => ErrorScreen(
+          firstPageErrorIndicatorBuilder: (context) => ErrorView(
             onRetry: onRetry ?? () => pagingController.refresh(),
           ),
           firstPageProgressIndicatorBuilder: (context) {
@@ -67,7 +67,7 @@ class CustomPaginatedListView<T> extends StatelessWidget {
       title: title,
       gap: AppSize.s8.h,
       titlePadding: AppSize.screenPadding,
-      titleStyle: titleStyle ?? context.titleLarge!.regular.s14.setHeight(2),
+      titleStyle: titleStyle ?? context.titleLarge.regular.s14.setHeight(2),
     );
   }
 }

@@ -2,7 +2,10 @@
 
 import 'dart:ui';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -44,6 +47,21 @@ extension WidgetExtension on Widget {
     );
   }
 
+  CircleAvatar circle({
+    double radius = AppSize.s24,
+    double borderWidth = 0,
+    Color? backgroundColor,
+    Color? borderColor,
+    Widget? child,
+  }) {
+    return CircleAvatar(
+      radius: radius,
+      backgroundColor: backgroundColor,
+      foregroundColor: borderColor,
+      child: child ?? this,
+    );
+  }
+
   ClipRRect withGlassEffect({
     double? height,
     double? width,
@@ -77,13 +95,13 @@ extension WidgetExtension on Widget {
     Widget? titleIcon,
     double? fontSize,
     TextStyle? titleStyle,
-    double gap = AppSize.s8,
+    double gap = AppSize.s12,
     double titlePadding = AppSize.s0,
   }) {
     return title != null
         ? Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-              Text(title, style: titleStyle ?? context.titleLarge!.bold.s16).paddingHorizontal(titlePadding),
+              Text(title, style: titleStyle ?? context.titleMedium.bold.s12).paddingHorizontal(titlePadding),
               titleIcon ?? const SizedBox.shrink()
             ]),
             gap.h.verticalSpace,
@@ -112,8 +130,41 @@ extension WidgetExtension on Widget {
   }
 
   /// set visibility
-  Widget visible(bool visible, {Widget? defaultWidget}) {
-    return visible ? this : (defaultWidget ?? const SizedBox());
+  Widget visible(bool visible, {Widget? fallback}) {
+    return visible ? this : (fallback ?? const SizedBox.shrink());
+  }
+
+  Widget setBorder(
+    BuildContext context, {
+    double? width,
+    Color? color,
+    double radius = 0,
+    double padding = 0,
+  }) {
+    return Container(
+      padding: padding.edgeInsetsAll.w,
+      decoration: BoxDecoration(
+        border: Border.all(color: color ?? context.inputFieldBorderColor, width: width ?? 1),
+        borderRadius: BorderRadius.circular(radius),
+      ),
+      child: this,
+    );
+  }
+
+  Widget setCircleBorder(
+    BuildContext context, {
+    double? width,
+    Color? color,
+    double padding = 0,
+  }) {
+    return Container(
+      padding: padding.edgeInsetsAll.w,
+      decoration: BoxDecoration(
+        border: Border.all(color: color ?? context.inputFieldBorderColor, width: width ?? 1),
+        shape: BoxShape.circle,
+      ),
+      child: this,
+    );
   }
 
   /// add custom corner radius each side
@@ -186,24 +237,25 @@ extension WidgetExtension on Widget {
   }
 
   /// set parent widget in center
-  Widget center({double? heightFactor, double? widthFactor}) {
-    return Center(heightFactor: heightFactor, widthFactor: widthFactor, child: this);
+  Widget center({double? heightFactor, double? widthFactor, bool enabled = true}) {
+    return enabled ? Center(heightFactor: heightFactor, widthFactor: widthFactor, child: this) : this;
   }
 
   /// add tap to parent widget
   Widget onTap(
-    Function? function, {
+    void Function()? function, {
     Color? splashColor,
     Color? hoverColor,
     Color? highlightColor,
     BorderRadius? borderRadius,
   }) {
     return InkWell(
-      onTap: function as void Function()?,
+      onTap: function,
       splashColor: splashColor,
       hoverColor: hoverColor,
       highlightColor: highlightColor,
       borderRadius: borderRadius,
+      // overlayColor: MaterialStateProperty.all(Colors.transparent),
       child: this,
     );
   }
@@ -225,13 +277,19 @@ extension WidgetExtension on Widget {
 
   Widget withTooltip({required String msg}) => Tooltip(message: msg, child: this);
 
+  Widget withSafeArea({EdgeInsets? minimum}) => SafeArea(minimum: minimum ?? EdgeInsets.zero, child: this);
+
   /// Make your any widget refreshable with RefreshIndicator on top
   // Widget get makeRefreshable => Stack(children: [ListView(), this]);
   RefreshIndicator makeRefreshable(Future<void> Function() onRefresh, {EdgeInsetsGeometry? padding}) {
     return RefreshIndicator(
-      backgroundColor: LightThemeColors.primaryContainer,
+      displacement: AppSize.s20.sp,
+      backgroundColor: LightThemeColors.scaffoldBackground,
       color: LightThemeColors.primary,
-      onRefresh: onRefresh,
+      onRefresh: () {
+        HapticFeedback.vibrate();
+        return onRefresh();
+      },
       child: ListView(
         physics: const AlwaysScrollableScrollPhysics(),
         padding: padding ?? const EdgeInsets.only(bottom: AppSize.bottomNavBarHeight),
@@ -351,8 +409,14 @@ extension RouterExtension on Widget {
   ///
   /// Returns a [Page] object representing the built page.
   Page<dynamic> buildPage({PageTransitions? transition, Duration? duration}) {
-    return customTransitionPage(this, transition, duration);
+    if (transition != null && transition == PageTransitions.cupertino) {
+      return CupertinoPage<dynamic>(child: this);
+    } else {
+      return customTransitionPage(this, transition, duration);
+    }
   }
+
+  Widget withBlocProvider<T extends Cubit<Object>>(T bloc) => BlocProvider<T>.value(value: bloc, child: this);
 }
 
 /// Extension on the [Widget] class to provide additional layout-related functionality.
@@ -375,7 +439,7 @@ extension LayoutExtensions on Widget {
   }) {
     return SingleChildScrollView(
       primary: primary,
-      padding: padding ?? EdgeInsets.symmetric(horizontal: AppSize.screenPadding, vertical: AppSize.s24.h),
+      padding: padding ?? EdgeInsets.symmetric(horizontal: AppSize.screenPadding, vertical: AppSize.s16.h),
       physics: physics ?? const AlwaysScrollableScrollPhysics(),
       reverse: reverse,
       child: this,
@@ -408,6 +472,15 @@ extension TransformExtension on Widget {
     return Transform.rotate(origin: origin, angle: angle.toRadians, transformHitTests: transformHitTests, child: this);
   }
 
+  //rotate with animation to parent widget
+  Widget rotateWithAnimation({required double angle}) {
+    return RotationTransition(
+      turns: AlwaysStoppedAnimation(angle / 360),
+      filterQuality: FilterQuality.high,
+      child: this,
+    );
+  }
+
   /// add scaling to parent widget
   Widget scale({required double scale, Offset? origin, AlignmentGeometry? alignment, bool transformHitTests = true}) {
     return Transform.scale(
@@ -426,7 +499,7 @@ extension TransformExtension on Widget {
 }
 
 extension AnimationExtension on Widget {
-  Widget setHero(String heroKey) => Hero(tag: heroKey, child: this);
+  Widget setHero(String heroKey) => Hero(tag: heroKey, child: Material(color: Colors.transparent, child: this));
 
   /// add opacity to parent widget
   Widget opacity({required double opacity, int durationInSecond = 1, Duration? duration}) {
@@ -453,4 +526,54 @@ extension AnimationExtension on Widget {
       child: this,
     );
   }
+}
+
+extension TextEx on Text {
+  /// add tap to text widget
+  Widget clickable({
+    required void Function() onTap,
+    Color splashColor = Colors.transparent,
+    Color highlightColor = Colors.transparent,
+    BorderRadius? borderRadius,
+    EdgeInsets? padding,
+    double paddingValue = 0.0,
+    double fontSize = 14,
+    FontWeight fontWeight = FontWeight.w400,
+    Color? color,
+    TextStyle? style,
+  }) {
+    final ValueNotifier<bool> highlighted = ValueNotifier<bool>(false);
+    return ValueListenableBuilder(
+      valueListenable: highlighted,
+      builder: (context, value, child) {
+        return InkWell(
+          onTap: onTap,
+          splashColor: value ? splashColor.withOpacity(0.5) : splashColor,
+          highlightColor: value ? highlightColor.withOpacity(0.5) : highlightColor,
+          borderRadius: borderRadius,
+          onTapDown: (details) => highlighted.value = true,
+          onTapUp: (details) => highlighted.value = false,
+          onTapCancel: () => highlighted.value = false,
+          child: AnimatedDefaultTextStyle(
+            curve: Curves.easeInOut,
+            duration: const Duration(milliseconds: 100),
+            style: style?.copyWith(color: value ? style.color?.withOpacity(0.5) : style.color) ??
+                context.displayLarge.copyWith(
+                  fontSize: fontSize.sp,
+                  fontWeight: fontWeight,
+                  color: value ? context.primaryColor.withOpacity(0.5) : context.primaryColor,
+                ),
+            child: Padding(
+              padding: padding ?? EdgeInsets.all(paddingValue),
+              child: this,
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+extension ColorEx on Color {
+  ColorFilter get colorFilter => ColorFilter.mode(this, BlendMode.srcIn);
 }

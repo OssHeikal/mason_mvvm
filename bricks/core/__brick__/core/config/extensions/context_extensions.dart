@@ -2,6 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../utils/overlay_utils.dart';
+
 double tabletBreakpointGlobal = 600.0;
 double desktopBreakpointGlobal = 720.0;
 
@@ -93,4 +95,12 @@ extension ContextExtensions on BuildContext {
   double get keyboardPadding => MediaQuery.of(this).viewInsets.bottom;
 
   String get languageCode => '${locale.languageCode}_${locale.countryCode}';
+
+  void hideKeyboard() => FocusScope.of(this).unfocus();
+
+  void showKeyboard() => FocusScope.of(this).requestFocus(FocusNode());
+
+  void showDialog(Widget dialog) => OverlayUtils.showCustomDialog(context: this, child: dialog);
+
+  void showBottomSheet(Widget bottomSheet) => OverlayUtils.showBottomSheet(context: this, child: bottomSheet);
 }

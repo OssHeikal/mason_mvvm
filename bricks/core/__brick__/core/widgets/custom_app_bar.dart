@@ -3,8 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
 import 'custom_search_field.dart';
-import '../config/extensions/all_extensions.dart';
-import '../resources/resources.dart';
+import '../../config/extensions/all_extensions.dart';
+import '../../resources/resources.dart';
 
 class CustomAppBar {
   static AppBar build(
@@ -25,7 +25,7 @@ class CustomAppBar {
   }) {
     return AppBar(
       toolbarHeight: height,
-      titleTextStyle: titleStyle ?? context.titleLarge!.bold.s20,
+      titleTextStyle: titleStyle ?? context.titleLarge.bold.s20,
       iconTheme: context.iconTheme!.copyWith(color: iconColor),
       backgroundColor: backgroundColor,
       leadingWidth: leadingWidth.sp,
@@ -34,7 +34,7 @@ class CustomAppBar {
       leading: leading ??
           (removeBack || !context.canPopScreen
               ? null
-              : Assets.icons.arrowBack.path
+              : Assets.icons.arrowLeft.path
                   .toSvg(color: iconColor)
                   .center()
                   .onTap(() => context.pop(context))

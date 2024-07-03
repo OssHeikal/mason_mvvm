@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../config/extensions/all_extensions.dart';
-import '../resources/resources.dart';
+import '../../config/extensions/all_extensions.dart';
+import '../../resources/resources.dart';
 import 'horizontal_list_view.dart';
 
 class CustomSelectableList extends StatefulWidget {
@@ -54,7 +54,7 @@ class _CustomSelectableListState extends State<CustomSelectableList> {
             final bgColor = index == selectedIndex.value ? context.primaryColor : context.primaryCardColor;
             return Text(
               widget.items[index],
-              style: context.titleLarge!.regular.s14.copyWith(color: textColor),
+              style: context.titleLarge.regular.s14.copyWith(color: textColor),
             )
                 .center()
                 .paddingSymmetric(AppSize.s20, AppSize.s8)

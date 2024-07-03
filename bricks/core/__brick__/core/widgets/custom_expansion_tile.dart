@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../config/extensions/all_extensions.dart';
-import '../resources/resources.dart';
+import '../../config/extensions/all_extensions.dart';
+import '../../resources/resources.dart';
 
 class CustomExpansionTile extends StatefulWidget {
   const CustomExpansionTile({
@@ -67,8 +67,8 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
                   Assets.icons.arrowDown.svg(colorFilter: context.iconColor.colorFilter).rotate(angle: value ? 180 : 0),
                 ],
               ),
-              title: Text(widget.title, style: context.titleMedium!.s14.regular),
-              children: widget.children ?? [Text(widget.content ?? '', style: context.bodyMedium!.s14)],
+              title: Text(widget.title, style: context.titleMedium.s14.regular),
+              children: widget.children ?? [Text(widget.content ?? '', style: context.bodyMedium.s14)],
             );
           }),
     );

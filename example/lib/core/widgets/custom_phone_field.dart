@@ -41,7 +41,7 @@ class CustomPhoneField extends StatelessWidget {
               showOnlyCountryWhenClosed: false,
               favorite: LocalizationConstants.favCountry,
               initialSelection: LocalizationConstants.initialSelection,
-              textStyle: context.titleMedium!.setFontSize(fontSize ?? FontSize.s16),
+              textStyle: context.titleMedium.setFontSize(fontSize ?? FontSize.s16),
               flagDecoration: BoxDecoration(borderRadius: BorderRadius.circular(AppSize.s3.r)),
               onChanged: (e) {
                 if (e.dialCode != null) {
@@ -54,11 +54,11 @@ class CustomPhoneField extends StatelessWidget {
               keyboardType: TextInputType.phone,
               controller: controller,
               onTap: onTap,
-              style: context.titleMedium!.setFontSize(fontSize ?? FontSize.s24),
+              style: context.titleMedium.setFontSize(fontSize ?? FontSize.s24),
               decoration: InputDecoration(
                 fillColor: Colors.transparent,
                 hintText: 'XXXXXXXXXX',
-                hintStyle: context.hintTextStyle!.setFontSize(fontSize ?? FontSize.s16),
+                hintStyle: context.hintTextStyle.setFontSize(fontSize ?? FontSize.s16),
                 border: InputBorder.none,
                 contentPadding: const EdgeInsets.symmetric(horizontal: AppSize.s16, vertical: 0),
               ),

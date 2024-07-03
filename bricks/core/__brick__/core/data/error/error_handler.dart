@@ -2,9 +2,9 @@ import 'dart:core';
 
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-import '../../config/router/route_names.dart';
 import '../../config/router/router_config.dart';
 import '../../resources/type_defs.dart';
 import '../../utils/toaster_utils.dart';
@@ -82,7 +82,7 @@ class ErrorHandler implements Exception {
             if (RouteConfigs.routerConfig.canPop()) {
               RouteConfigs.routerConfig.pop();
             }
-            RouteConfigs.routerConfig.pushNamed(AppRoutes.login.name);
+            // RouteConfigs.routerConfig.pushNamed(AppRoutes.login.name);
             Toaster.showToast(ErrorConstants.unauthorizedError.tr());
             return UnauthenticatedFailure(message: ErrorConstants.unauthorizedError);
           case ResponseCode.BLOCKED:

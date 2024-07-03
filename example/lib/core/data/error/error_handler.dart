@@ -2,9 +2,12 @@ import 'dart:core';
 
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
+import '../../config/router/router_config.dart';
 import '../../resources/type_defs.dart';
+import '../../utils/toaster_utils.dart';
 import 'error_constants.dart';
 import 'error_model.dart';
 import 'failure.dart';
@@ -76,6 +79,11 @@ class ErrorHandler implements Exception {
       case DioExceptionType.badResponse:
         switch (error.response?.statusCode) {
           case ResponseCode.UNAUTHORIZED:
+            if (RouteConfigs.routerConfig.canPop()) {
+              RouteConfigs.routerConfig.pop();
+            }
+            // RouteConfigs.routerConfig.pushNamed(AppRoutes.login.name);
+            Toaster.showToast(ErrorConstants.unauthorizedError.tr());
             return UnauthenticatedFailure(message: ErrorConstants.unauthorizedError);
           case ResponseCode.BLOCKED:
             return UserBlockedFailure(message: ErrorConstants.blockedError);
@@ -110,6 +118,26 @@ class ErrorHandler implements Exception {
         return ResponseStatusType.BAD_REQUEST.getFailure();
       case DioExceptionType.connectionError:
         return ResponseStatusType.NO_INTERNET_CONNECTION.getFailure();
+    }
+  }
+}
+
+extension DioExceptionExtension on Future<Response> {
+  DataResponse<T> map<T>(FromJson<T> jsonConvert) async {
+    try {
+      final result = await this;
+      if (result.statusCode == ResponseCode.SUCCESS || result.statusCode == ResponseCode.NO_CONTENT) {
+        // on success
+        debugPrint(result.data.toString());
+        return Right(jsonConvert(result.data));
+      } else {
+        // on failure
+        return Left(ResponseStatusType.BAD_REQUEST.getFailure());
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+      // on error
+      return Left(ErrorHandler.handle(e).failure);
     }
   }
 }
