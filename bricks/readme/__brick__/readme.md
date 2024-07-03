@@ -39,7 +39,7 @@ dependencies:
   local_auth: ^2.1.8
   file_picker: ^6.1.1
   percent_indicator: ^4.2.3
-  intl: ^0.18.1
+  intl: 
   google_maps_flutter: ^2.5.3
   geolocator:
   permission_handler: ^11.2.0
@@ -51,7 +51,8 @@ dependencies:
   share_plus: ^7.2.2
   infinite_scroll_pagination: ^4.0.0
   readmore: ^3.0.0
-  carousel_slider: ^4.2.1  sticky_headers: ^0.3.0+2
+  carousel_slider: ^4.2.1  
+  sticky_headers: ^0.3.0+2
   animated_flip_counter: ^0.3.4
   flutter_widget_from_html: ^0.14.11
   rename: ^3.0.2
