@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:habl_ghaseel/core/config/extensions/all_extensions.dart';
 
-import '../../config/theme/light_theme.dart';
-import '../../resources/resources.dart';
+import '../config/extensions/all_extensions.dart';
+import '../config/theme/light_theme.dart';
+import '../resources/resources.dart';
 
 enum DecorationType { underlined, outlined, filled }
 

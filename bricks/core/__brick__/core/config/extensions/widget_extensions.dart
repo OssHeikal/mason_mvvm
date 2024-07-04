@@ -101,7 +101,7 @@ extension WidgetExtension on Widget {
     return title != null
         ? Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-              Text(title, style: titleStyle ?? context.titleMedium!.bold.s12).paddingHorizontal(titlePadding),
+              Text(title, style: titleStyle ?? context.titleMedium.bold.s12).paddingHorizontal(titlePadding),
               titleIcon ?? const SizedBox.shrink()
             ]),
             gap.h.verticalSpace,
@@ -558,7 +558,7 @@ extension TextEx on Text {
             curve: Curves.easeInOut,
             duration: const Duration(milliseconds: 100),
             style: style?.copyWith(color: value ? style.color?.withOpacity(0.5) : style.color) ??
-                context.displayLarge!.copyWith(
+                context.displayLarge.copyWith(
                   fontSize: fontSize.sp,
                   fontWeight: fontWeight,
                   color: value ? context.primaryColor.withOpacity(0.5) : context.primaryColor,

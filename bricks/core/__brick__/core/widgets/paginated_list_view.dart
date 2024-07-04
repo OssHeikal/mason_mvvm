@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
-import '../../config/extensions/all_extensions.dart';
-import '../../resources/resources.dart';
+import '../config/extensions/all_extensions.dart';
+import '../resources/resources.dart';
 
 class PaginatedListView<T> extends StatelessWidget {
   const PaginatedListView({

@@ -286,18 +286,4 @@ class Validator {
     }
     return null;
   }
-
-  static String? validateBirthDate(DateTime? value) {
-    if (value == null) {
-      return LocaleKeys.validator_birth_date.tr();
-    }
-    return null;
-  }
-
-  static String? validateLatLng(double? value) {
-    if (value == null) {
-      return LocaleKeys.validator_location.tr();
-    }
-    return null;
-  }
 }

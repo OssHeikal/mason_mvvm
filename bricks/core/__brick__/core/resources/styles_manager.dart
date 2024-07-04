@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../config/theme/light_theme.dart';
+import '../config/theme/light_theme.dart';
 
 class TextStylesManager {
   const TextStylesManager._();

@@ -3,8 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:readmore/readmore.dart';
 
-import '../../config/extensions/all_extensions.dart';
-import '../../resources/resources.dart';
+import '../config/extensions/all_extensions.dart';
+import '../resources/resources.dart';
 
 class CustomReadMoreText extends StatelessWidget {
   const CustomReadMoreText(this.text, {super.key});

@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 
-import '../../data/error/failure.dart';
+import '../data/error/failure.dart';
 
 typedef FromJson<T> = T Function(Map<String, dynamic> body);
 

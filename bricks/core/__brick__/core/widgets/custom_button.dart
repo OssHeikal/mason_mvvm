@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../config/extensions/all_extensions.dart';
-import '../../config/theme/light_theme.dart';
-import '../../resources/resources.dart';
+import '../config/extensions/all_extensions.dart';
+import '../config/theme/light_theme.dart';
+import '../resources/resources.dart';
 
 enum ButtonType { icon, svg, text }
 

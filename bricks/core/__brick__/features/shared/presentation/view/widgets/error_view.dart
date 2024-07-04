@@ -38,12 +38,12 @@ class ErrorView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SvgPicture.asset(svgPath ?? Assets.icons.connectionLost.path),
+              SvgPicture.asset(svgPath ?? Assets.icons.warning.path),
               AppSize.s24.verticalSpace,
               Text(
                 message ?? LocaleKeys.dio_messages_no_internet_error.tr(),
                 textAlign: TextAlign.center,
-                style: context.bodyMedium!.s18.medium,
+                style: context.bodyMedium.s18.medium,
               ),
               AppSize.s45.verticalSpace,
               if (onRetry != null) CustomButton(onPressed: onRetry!, label: LocaleKeys.retry.tr()),

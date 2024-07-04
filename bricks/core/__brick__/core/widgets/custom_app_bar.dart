@@ -3,8 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
 import 'custom_search_field.dart';
-import '../../config/extensions/all_extensions.dart';
-import '../../resources/resources.dart';
+import '../config/extensions/all_extensions.dart';
+import '../resources/resources.dart';
 
 class CustomAppBar {
   static AppBar build(

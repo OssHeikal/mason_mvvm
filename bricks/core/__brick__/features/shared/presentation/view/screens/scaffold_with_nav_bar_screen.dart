@@ -10,9 +10,7 @@ import '../../../../../core/config/router/route_names.dart';
 import '../../../../../core/config/service_locator/injection.dart';
 import '../../../../../core/resources/cubit_status.dart';
 import '../../../../../core/resources/resources.dart';
-import '../../../../../core/utils/toaster_utils.dart';
 import '../../../../../core/widgets/custom_loading.dart';
-import '../../../../cart/presentation/controller/cart_cubit.dart';
 import '../../controller/connectivity_cubit/connectivity_cubit.dart';
 import '../widgets/error_view.dart';
 
@@ -70,15 +68,8 @@ class _ScaffoldWithNavBarScreenState extends State<ScaffoldWithNavBarScreen> {
   }
 
   void _onTap(int index) {
-    if (index < 2) {
-      bottomNavNotifier.value = index;
-      widget.shell.goBranch(index);
-    } else if (index > 2) {
-      bottomNavNotifier.value = index;
-      widget.shell.goBranch(index - 1);
-    } else {
-      AppRoutes.cart.push(context);
-    }
+    bottomNavNotifier.value = index;
+    widget.shell.goBranch(index);
   }
 }
 

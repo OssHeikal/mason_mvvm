@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../config/extensions/all_extensions.dart';
-import '../../resources/resources.dart';
+import '../config/extensions/all_extensions.dart';
+import '../resources/resources.dart';
 import 'custom_button.dart';
 import 'custom_close_button.dart';
 

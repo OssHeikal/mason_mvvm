@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../config/extensions/all_extensions.dart';
-import '../../resources/resources.dart';
+import '../config/extensions/all_extensions.dart';
+import '../resources/resources.dart';
 
 class ShimmerWidget extends StatelessWidget {
   const ShimmerWidget({

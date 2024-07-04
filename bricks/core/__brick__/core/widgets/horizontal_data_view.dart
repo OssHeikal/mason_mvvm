@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../config/extensions/all_extensions.dart';
+import '../config/extensions/all_extensions.dart';
 
 class HorizontalDataView extends StatelessWidget {
   const HorizontalDataView({

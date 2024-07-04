@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:plus_app/features/shared/presentation/view/widgets/error_view.dart';
 
+import '../../../../features/shared/presentation/view/widgets/error_view.dart';
 import '../../resources/cubit_status.dart';
 import 'all_extensions.dart';
 

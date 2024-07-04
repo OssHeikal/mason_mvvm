@@ -4,11 +4,6 @@ import 'dart:convert';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
-import '../config/extensions/all_extensions.dart';
-import '../config/router/route_names.dart';
-import '../config/router/router_config.dart';
-import '../resources/resources.dart';
-
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   handleNotification(message);
@@ -16,12 +11,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 
 void handleNotification(RemoteMessage? message) {
   if (message != null) {
-    final data = message.data;
-    print('osssssssssssss Notification Data: $data');
-    final targetType = NotificationType.fromValue(data['type']);
-    if (targetType.isOrder) {
-      RouteConfigs.routerConfig.pushNamed(AppRoutes.orderDetails.name, extra: NotificationType.target(data));
-    }
+    // final data = message.data;
   }
 }
 
