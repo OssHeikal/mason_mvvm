@@ -173,3 +173,9 @@ git update-index --skip-worktree mason/mason-lock.json
 
 git update-index --skip-worktree mason/mason.yaml
 ```
+
+## create flutter project 
+```shell
+flutter create --org com.yourdomain . 
+``` 
+
