@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../config/extensions/all_extensions.dart';
-import '../resources/resources.dart';
 
 class CustomCheckBox extends StatefulWidget {
   const CustomCheckBox({
@@ -41,14 +40,12 @@ class _CustomCheckBoxState extends State<CustomCheckBox> {
               children: [
                 Checkbox.adaptive(
                   value: checked,
-                  activeColor: context.primaryColor,
+                  activeColor: Colors.transparent,
                   isError: formState.hasError,
-                  shape: RoundedRectangleBorder(borderRadius: AppSize.s4.borderRadius.r),
-                  side: BorderSide(
-                    width: 1.w,
-                    color: formState.hasError ? context.errorColor : context.primaryBorder,
-                  ),
-                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  checkColor: context.primaryColor,
+                  shape: RoundedRectangleBorder(borderRadius: 4.borderRadius.r),
+                  side: BorderSide(width: 1.w, color: _getBorderColor(checked, formState.hasError, context)),
+                  materialTapTargetSize: MaterialTapTargetSize.padded,
                   visualDensity: const VisualDensity(
                     horizontal: VisualDensity.minimumDensity,
                     vertical: VisualDensity.minimumDensity,
@@ -58,7 +55,6 @@ class _CustomCheckBoxState extends State<CustomCheckBox> {
                     formState.didChange(value);
                   },
                 ),
-                AppSize.s6.horizontalSpace,
                 widget.label,
               ],
             );
@@ -66,5 +62,15 @@ class _CustomCheckBoxState extends State<CustomCheckBox> {
         );
       },
     );
+  }
+
+  Color _getBorderColor(bool checked, bool hasError, BuildContext context) {
+    if (hasError) {
+      return context.errorColor;
+    } else if (checked) {
+      return context.primaryColor;
+    } else {
+      return context.inputFieldBorderColor;
+    }
   }
 }

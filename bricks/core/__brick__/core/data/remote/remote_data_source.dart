@@ -16,7 +16,7 @@ abstract class RemoteDataSource {}
 
 @LazySingleton(as: RemoteDataSource)
 class RemoteDataSourceImpl implements RemoteDataSource {
-  final ApiClient dio;
+  final ApiClient client;
 
-  RemoteDataSourceImpl(this.dio);
+  RemoteDataSourceImpl(this.client);
 }

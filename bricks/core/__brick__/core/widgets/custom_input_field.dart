@@ -1,3 +1,5 @@
+import 'package:evently/core/utils/input_formatters.dart';
+import 'package:evently/core/widgets/paste_icon_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -5,12 +7,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../config/extensions/all_extensions.dart';
 import '../config/theme/light_theme.dart';
 import '../resources/resources.dart';
+import 'close_icon_button.dart';
 
 enum DecorationType { underlined, outlined, filled }
+
+enum InputType { text, textAr, textEn, name, number, email, password, phone, url, price }
 
 class CustomInputField extends StatefulWidget {
   const CustomInputField({
     super.key,
+    this.inputType = InputType.text,
     required this.decorationType,
     this.hasDropDown,
     this.text,
@@ -55,8 +61,11 @@ class CustomInputField extends StatefulWidget {
     this.initialValue,
     this.background,
     this.gradientBorder,
+    this.inputFormatters,
+    this.isRequired = false,
   });
 
+  final InputType inputType;
   final DecorationType decorationType;
   final bool? hasDropDown;
   final String? text;
@@ -71,7 +80,7 @@ class CustomInputField extends StatefulWidget {
   final Widget? suffixIcon;
   final String? Function(String?)? validator;
   final TextEditingController? controller;
-  final TextInputType keyboardType;
+  final TextInputType? keyboardType;
   final bool isPassword;
   final bool enabled, readOnly, borderEnabled;
   final bool autoFocus;
@@ -98,9 +107,12 @@ class CustomInputField extends StatefulWidget {
   final String? initialValue;
   final Color? background;
   final Gradient? gradientBorder;
+  final List<TextInputFormatter>? inputFormatters;
+  final bool isRequired;
 
   const CustomInputField.underlined({
     super.key,
+    this.inputType = InputType.text,
     this.hasDropDown = false,
     this.text,
     this.textInputAction = TextInputAction.done,
@@ -114,7 +126,7 @@ class CustomInputField extends StatefulWidget {
     this.suffixIcon,
     this.validator,
     this.controller,
-    this.keyboardType = TextInputType.text,
+    this.keyboardType,
     this.isPassword = false,
     this.enabled = true,
     this.readOnly = false,
@@ -144,10 +156,13 @@ class CustomInputField extends StatefulWidget {
     this.initialValue,
     this.background,
     this.gradientBorder,
+    this.inputFormatters,
+    this.isRequired = false,
   }) : decorationType = DecorationType.underlined;
 
   const CustomInputField.filled({
     super.key,
+    this.inputType = InputType.text,
     this.hasDropDown = false,
     this.text,
     this.textInputAction = TextInputAction.done,
@@ -161,7 +176,7 @@ class CustomInputField extends StatefulWidget {
     this.suffixIcon,
     this.validator,
     this.controller,
-    this.keyboardType = TextInputType.text,
+    this.keyboardType,
     this.isPassword = false,
     this.enabled = true,
     this.readOnly = false,
@@ -191,10 +206,13 @@ class CustomInputField extends StatefulWidget {
     this.initialValue,
     this.background,
     this.gradientBorder,
+    this.inputFormatters,
+    this.isRequired = false,
   }) : decorationType = DecorationType.filled;
 
   const CustomInputField.outlined({
     super.key,
+    this.inputType = InputType.text,
     this.hasDropDown = false,
     this.text,
     this.textInputAction = TextInputAction.done,
@@ -208,7 +226,7 @@ class CustomInputField extends StatefulWidget {
     this.suffixIcon,
     this.validator,
     this.controller,
-    this.keyboardType = TextInputType.text,
+    this.keyboardType,
     this.isPassword = false,
     this.enabled = true,
     this.readOnly = false,
@@ -238,6 +256,8 @@ class CustomInputField extends StatefulWidget {
     this.initialValue,
     this.background,
     this.gradientBorder,
+    this.inputFormatters,
+    this.isRequired = false,
   }) : decorationType = DecorationType.outlined;
 
   @override
@@ -255,7 +275,7 @@ class _CustomInputFieldState extends State<CustomInputField> {
         return TextFormField(
           controller: widget.controller,
           initialValue: widget.initialValue,
-          validator: widget.validator,
+          // validator: widget.validator,
           style: context.textTheme.bodyLarge?.regular.s12,
           onFieldSubmitted: widget.onSubmitted,
           textInputAction: widget.textInputAction,
@@ -263,12 +283,12 @@ class _CustomInputFieldState extends State<CustomInputField> {
           cursorColor: context.primaryColor,
           enabled: widget.enabled,
           readOnly: widget.readOnly,
-          keyboardType: widget.keyboardType,
+          keyboardType: _getKeyboardType(),
           maxLines: widget.maxLines,
           onChanged: widget.onChanged,
           onTapOutside: (_) => FocusScope.of(context).unfocus(),
           autofocus: widget.autoFocus,
-          obscureText: widget.isPassword && obscuredValue,
+          obscureText: widget.inputType == InputType.password && obscuredValue,
           enableSuggestions: widget.isPassword,
           autocorrect: widget.isPassword,
           autovalidateMode: widget.autovalidateMode ?? AutovalidateMode.onUserInteraction,
@@ -283,12 +303,12 @@ class _CustomInputFieldState extends State<CustomInputField> {
             isDense: widget.isDense,
             fillColor: _getBackgroundColor(),
             constraints: widget.height != null ? BoxConstraints(maxHeight: widget.height!) : null,
-            labelStyle: TextStylesManager.font.regular.s12.ellipsis.setColor(LightThemeColors.unActive),
-            contentPadding: const EdgeInsets.symmetric(horizontal: AppSize.s16, vertical: AppSize.s10),
+            labelStyle: widget.labelStyle ?? context.hintTextStyle,
+            contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
             hintStyle: TextStylesManager.font.regular.s12.ellipsis.setColor(LightThemeColors.hintText),
             border: _buildInputBorder(borderColor: widget.borderColor),
             focusedBorder: _buildInputBorder(borderColor: widget.borderColor ?? context.primaryColor),
-            enabledBorder: _buildInputBorder(borderColor: widget.borderColor),
+            enabledBorder: _buildInputBorder(borderColor: widget.borderColor ?? LightThemeColors.inputFieldBorder),
             errorBorder: _buildInputBorder(borderColor: context.errorColor),
             focusedErrorBorder: _buildInputBorder(borderColor: context.errorColor),
             prefixIconConstraints: widget.smallSuffixIcon ? BoxConstraints(maxWidth: AppSize.iconNormal.sp) : null,
@@ -296,7 +316,7 @@ class _CustomInputFieldState extends State<CustomInputField> {
             prefixIcon: widget.prefixIcon,
             suffixIcon: _buildSuffixIcon(obscuredValue),
           ),
-        ).setTitle(context, title: widget.title, titleStyle: widget.labelStyle ?? context.titleMedium.s14.medium);
+        ).setTitle(title: widget.title, titleStyle: widget.labelStyle ?? context.bodyLarge.s14.medium);
       },
     );
   }
@@ -332,23 +352,71 @@ class _CustomInputFieldState extends State<CustomInputField> {
   }
 
   Widget? _buildSuffixIcon(bool obscuredValue) {
-    return widget.isPassword
-        ? obscuredValue
-            ? Assets.icons.eyeOn.path
-                .toSvg(color: LightThemeColors.hintText)
-                .onTap(() => obscure.value = !obscuredValue)
-            : Assets.icons.eyeOff.path
-                .toSvg(color: LightThemeColors.hintText)
-                .onTap(() => obscure.value = !obscuredValue)
-        : widget.suffixIcon;
+    if (widget.suffixIcon != null) {
+      return widget.suffixIcon;
+    } else if (widget.inputType == InputType.password) {
+      return _buildVisibilityIcon(obscuredValue);
+    } else if (widget.inputType == InputType.url) {
+      return widget.controller?.text == '' ? _buildPasteIcon() : _buildClearIcon();
+    }
+    return null;
+  }
+
+  Widget _buildVisibilityIcon(bool obscuredValue) {
+    return obscuredValue
+        ? Assets.icons.eyeOn.path.toSvg(color: LightThemeColors.hintText).onTap(() => obscure.value = !obscuredValue)
+        : Assets.icons.eyeOff.path.toSvg(color: LightThemeColors.hintText).onTap(() => obscure.value = !obscuredValue);
+  }
+
+  Widget? _buildClearIcon() {
+    if (widget.controller == null) return null;
+    return CloseIconButton(onPressed: () => widget.controller!.clear());
+  }
+
+  Widget? _buildPasteIcon() {
+    if (widget.controller == null) return null;
+    return PasteIconButton(onPressed: (text) => widget.controller?.text = text);
+  }
+
+  TextInputType? _getKeyboardType() {
+    switch (widget.inputType) {
+      case InputType.text:
+        return TextInputType.text;
+      case InputType.textAr:
+        return TextInputType.text;
+      case InputType.textEn:
+        return TextInputType.text;
+      case InputType.name:
+        return TextInputType.text;
+      case InputType.number:
+        return TextInputType.number;
+      case InputType.email:
+        return TextInputType.emailAddress;
+      case InputType.password:
+        return TextInputType.visiblePassword;
+      case InputType.phone:
+        return TextInputType.phone;
+      case InputType.url:
+        return TextInputType.url;
+      case InputType.price:
+        return TextInputType.number;
+      default:
+        return widget.keyboardType;
+    }
   }
 
   List<TextInputFormatter>? _getInputFormatters() {
-    if (widget.keyboardType == TextInputType.number) {
-      return !widget.hasPoint
-          ? [FilteringTextInputFormatter.digitsOnly]
-          : [FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}'))];
+    switch (widget.inputType) {
+      case InputType.textAr:
+        return [ArabicInputFormatter()];
+      case InputType.textEn:
+        return [EnglishInputFormatter()];
+      case InputType.number:
+        return [FilteringTextInputFormatter.digitsOnly];
+      case InputType.phone:
+        return [FilteringTextInputFormatter.allow(RegExp('[0-9]'))];
+      default:
+        return widget.inputFormatters;
     }
-    return null;
   }
 }

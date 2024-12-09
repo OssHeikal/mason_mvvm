@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../config/extensions/all_extensions.dart';
-import '../resources/resources.dart';
 
 class StickyHeaderDelegate extends SliverPersistentHeaderDelegate {
   StickyHeaderDelegate({
     required this.child,
-    this.height = AppSize.s24,
+    this.height = 24,
   });
 
   final Widget child;
@@ -16,7 +15,7 @@ class StickyHeaderDelegate extends SliverPersistentHeaderDelegate {
   @override
   Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
     return child.setContainerToView(
-      radius: AppSize.s0,
+      radius: 0,
       padding: 0,
       color: context.scaffoldBackgroundColor,
     );

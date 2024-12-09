@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'package:url_launcher/url_launcher.dart';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -30,6 +33,14 @@ extension StringExtension on String? {
   /// Check URL validation
   bool validateURL() => hasMatch(this, Patterns.url);
 
+  String get enterHint => LocaleKeys.actions_enter.tr(args: [validate()]);
+
+  String get selectHint => LocaleKeys.actions_select.tr(args: [validate()]);
+
+  String get ar => LocaleKeys.localized_ar.tr(args: [validate()]);
+
+  String get en => LocaleKeys.localized_en.tr(args: [validate()]);
+
   /// Returns true if given  is null
   bool get isNull => this == null;
 
@@ -38,6 +49,9 @@ extension StringExtension on String? {
 
   /// validate password
   bool get isValidPassword => this == null || (this != null && this!.length < 8) || (this != null && this! == 'null');
+
+  /// validate url
+  bool get isValidUrl => this == null || (this != null && !this!.validateURL()) || (this != null && this! == 'null');
 
   // Check null string, return given value if null
   String validate({String value = ''}) {
@@ -107,12 +121,18 @@ extension StringExtension on String? {
     }
   }
 
-  DateTime toDate() {
+  DateTime toDateTime({formate = 'dd/MM/yyyy'}) {
+    DateFormat format = DateFormat(formate);
     if (isEmptyOrNull) {
       return DateTime.now();
     } else {
-      return DateTime.tryParse(this!) ?? DateTime.now();
+      return DateTime.tryParse(this!) ?? format.tryParse(this!) ?? DateTime.now();
     }
+  }
+
+  List<int> toIntList() {
+    if (this == null || this!.isEmpty) return [];
+    return this!.split(',').map((part) => int.tryParse(part.trim()) ?? 0).toList();
   }
 
   /// Return double value of given string
@@ -122,6 +142,14 @@ extension StringExtension on String? {
       return double.tryParse(this!) ?? 0;
     } catch (e) {
       return defaultValue;
+    }
+  }
+
+  Uri toUri() {
+    if (isEmptyOrNull) {
+      return Uri.parse('');
+    } else {
+      return Uri.parse(validate());
     }
   }
 
@@ -180,13 +208,38 @@ extension StringExtension on String? {
       }
     }
   }
+
+  Future<bool> openUrl() async {
+    final uri = Uri.parse(validate());
+    if (await canLaunchUrl(uri)) {
+      return await launchUrl(
+        uri,
+        mode: LaunchMode.externalApplication,
+        webViewConfiguration: const WebViewConfiguration(
+          enableDomStorage: false,
+          enableJavaScript: false,
+        ),
+      );
+    } else {
+      throw Exception('Unable to launch url');
+    }
+  }
+
+  dynamic decode() {
+    return jsonDecode(validate());
+  }
 }
 
 class Patterns {
-  static String url =
-      r'^((?:.|\n)*?)((http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)([-A-Z0-9.]+)(/[-A-Z0-9+&@#/%=~_|!:,.;]*)?(\?[A-Z0-9+&@#/%=~_|!:‌​,.;]*)?)';
+  static String url = r'^(https?:\/\/)?' // Optional scheme (http or https)
+      r'([\w.-]+)' // Domain name or IP address
+      r'(\.[a-zA-Z]{2,})' // Top-level domain
+      r'(:\d+)?' // Optional port
+      r'(\/[\w\.-]*)*\/?' // Optional path
+      r'(\?[^\s#]*)?' // Optional query parameters
+      r'(#\S*)?$'; // Optional fragment
 
-  static String phone = r'(^(?:[+0]9)?[0-9]{10,12}$)';
+  static String phone = r'(^(?:[+0]9)?[0-9]{10}$)';
 
   static String saudiPhoneNumber = r'^05[0-9]{8}$';
 
@@ -219,71 +272,4 @@ class Patterns {
 
   /// Price regex
   static String price = r'(\d{1,3})(?=(\d{3})+(?!\d))';
-}
-
-class Validator {
-  static String? validateEmail(String? value) {
-    if (value == null || value.isEmpty || !value.validateEmail()) {
-      return LocaleKeys.validator_email.tr();
-    }
-    return null;
-  }
-
-  static String? validatePhoneSa(String? value) {
-    if (value == null || value.isEmpty) {
-      return LocaleKeys.validator_phone.tr();
-    }
-    if (!value.validateSaudiPhoneNumber()) {
-      return LocaleKeys.validator_phone.tr();
-    }
-    return null;
-  }
-
-  static String? validatePassword(String? value) {
-    if (value == null || value.length < 8 || value.length > 200) {
-      return LocaleKeys.validator_password.tr();
-    } else if (!value.validatePassword()) {
-      return LocaleKeys.validator_password_pattern.tr();
-    }
-    return null;
-  }
-
-  static String? validateConfirmPassword(String? value, String? password) {
-    if (value == null || value.isEmpty || value != password) {
-      return LocaleKeys.validator_confirm_password.tr();
-    }
-    return null;
-  }
-
-  static String? validateName(String? value) {
-    final name = value?.trim();
-    if (name == null || name.isEmpty || name.replaceAll(" ", "").length < 3) {
-      return LocaleKeys.validator_name.tr();
-    } else if (!name.validateName() || name.validateSpecialCharacters() || name.isDigit()) {
-      return LocaleKeys.validator_name_pattern.tr();
-    }
-    return null;
-  }
-  // static String? validateName(String? value) {
-  //   if (value == null || value.isEmpty || value.length < 3) {
-  //     return LocaleKeys.validator_name.tr();
-  //   } else if (!value.validateName() || value.validateSpecialCharacters()) {
-  //     return LocaleKeys.validator_name_pattern.tr();
-  //   }
-  //   return null;
-  // }
-
-  static String? validateEmpty(String? value) {
-    if (value == null || value.trim().isEmpty) {
-      return LocaleKeys.validator_required.tr();
-    }
-    return null;
-  }
-
-  static String? validateOTP(String? value) {
-    if (value == null || value.isEmpty || value.length < 4) {
-      return LocaleKeys.validator_otp.tr();
-    }
-    return null;
-  }
 }

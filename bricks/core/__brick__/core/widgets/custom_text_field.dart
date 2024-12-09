@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../config/extensions/all_extensions.dart';
 import '../resources/resources.dart';
+import '../utils/validators.dart';
 import 'custom_input_field.dart';
 
 class CustomTextField extends StatefulWidget {
@@ -11,6 +13,7 @@ class CustomTextField extends StatefulWidget {
     this.prefixIcon,
     this.controller,
     this.hint,
+    this.title,
     this.isPassword = false,
     this.keyboardType = TextInputType.text,
     this.validator,
@@ -19,10 +22,16 @@ class CustomTextField extends StatefulWidget {
     this.height,
     this.focusNode,
     this.onChanged,
+    this.maxLines = 1,
+    this.suffixIcon,
+    this.inputFormatters,
+    this.inputType = InputType.text,
+    this.isRequired = true,
   });
   final String? prefixIcon;
   final TextEditingController? controller;
   final String? hint;
+  final String? title;
   final bool isPassword;
   final TextInputType keyboardType;
   final String? Function(String?)? validator;
@@ -31,6 +40,11 @@ class CustomTextField extends StatefulWidget {
   final double? height;
   final FocusNode? focusNode;
   final void Function(String)? onChanged;
+  final int maxLines;
+  final Widget? suffixIcon;
+  final List<TextInputFormatter>? inputFormatters;
+  final InputType inputType;
+  final bool isRequired;
 
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
@@ -55,12 +69,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       builder: (context, hasFocus, child) {
         final bool enabled = hasFocus || widget.controller?.text.isNotEmpty == true;
         return FormField(
-          validator: (_) {
-            if (widget.validator != null) {
-              return widget.validator!(widget.controller!.text);
-            }
-            return null;
-          },
+          validator: _getValidator(),
           autovalidateMode: AutovalidateMode.onUserInteraction,
           builder: (FormFieldState<String> formState) {
             return Column(
@@ -69,21 +78,25 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 AnimatedContainer(
                   curve: Curves.easeInOutCubic,
                   duration: 200.milliseconds,
-                  padding: AppSize.s1.edgeInsetsAll,
-                  decoration: BoxDecoration(
-                    gradient: enabled && !formState.hasError ? GradientStyles.primaryGradient : null,
-                    borderRadius: AppSize.inputBorderRadius.borderRadius,
-                  ),
+                  padding: 1.edgeInsetsAll,
+                  decoration: BoxDecoration(borderRadius: AppSize.inputBorderRadius.borderRadius),
                   child: CustomInputField.outlined(
+                    isRequired: widget.isRequired,
+                    inputType: widget.inputType,
                     readOnly: widget.readOnly,
                     height: widget.height,
                     hint: widget.hint,
+                    label: widget.title,
                     focusNode: widget.focusNode ?? _focusNode,
                     isPassword: widget.isPassword,
-                    background: !enabled ? context.primaryContainerColor : null,
-                    borderColor: formState.hasError ? context.errorColor : Colors.transparent,
+                    background: context.scaffoldBackgroundColor,
+                    borderColor: _borderColor(formState, enabled, context),
                     controller: widget.controller,
+                    inputFormatters: widget.inputFormatters,
                     keyboardType: widget.keyboardType,
+                    maxLines: widget.maxLines,
+                    suffixIcon: widget.suffixIcon,
+                    labelStyle: context.bodyLarge.s12,
                     prefixIcon: widget.prefixIcon?.toSvg(
                       colorFilter: enabled ? context.iconColor.colorFilter : context.hintTextStyle.color!.colorFilter,
                       width: AppSize.iconNormal,
@@ -103,12 +116,49 @@ class _CustomTextFieldState extends State<CustomTextField> {
                     },
                   ),
                 ),
-                if (formState.hasError) Text(formState.errorText!, style: context.errorStyle).paddingTop(8.sp),
+                if (formState.hasError)
+                  Text(formState.errorText!, style: context.errorStyle).paddingTop(4.sp).paddingStart(4),
               ],
             );
           },
         );
       },
     );
+  }
+
+  Color _borderColor(FormFieldState<String> formState, bool enabled, BuildContext context) {
+    if (formState.hasError) {
+      return context.errorColor;
+    } else if (enabled) {
+      return context.primaryBorder;
+    } else {
+      return context.inputFieldBorderColor;
+    }
+  }
+
+  String? Function(String?)? _getValidator() {
+    switch (widget.inputType) {
+      case InputType.name:
+        return (_) => Validator.validateName(widget.controller!.text);
+      case InputType.email:
+        return (value) => Validator.validateEmail(widget.controller!.text, isRequired: widget.isRequired);
+      case InputType.password:
+        if (widget.isRequired) {
+          return (_) => Validator.validateEmpty(widget.controller!.text);
+        } else {
+          return (_) => Validator.validatePassword(widget.controller!.text);
+        }
+      case InputType.phone:
+        return (value) => Validator.validatePhone(widget.controller!.text, isRequired: widget.isRequired);
+      case InputType.url:
+        return (_) => Validator.validateURL(widget.controller!.text);
+      default:
+        if (widget.validator != null) {
+          return (_) => widget.validator!(widget.controller!.text);
+        } else if (widget.isRequired) {
+          return (_) => Validator.validateEmpty(widget.controller!.text);
+        }
+    }
+    return null;
   }
 }

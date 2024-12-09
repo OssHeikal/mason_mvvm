@@ -2,6 +2,7 @@
 
 import 'dart:ui';
 
+import 'package:evently/core/config/router/route_manager.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -18,7 +19,7 @@ Duration transitionDuration = const Duration(milliseconds: 300);
 
 extension WidgetExtension on Widget {
   /// set container to view
-  Container setContainerToView({
+  Widget setContainerToView({
     double? height,
     double? width,
     double? margin,
@@ -34,12 +35,12 @@ extension WidgetExtension on Widget {
       height: height,
       alignment: alignment,
       margin: EdgeInsets.all(margin ?? 0),
-      padding: EdgeInsets.all(padding ?? AppSize.s0.r),
+      padding: EdgeInsets.all(padding ?? 0.r),
       decoration: ShapeDecoration(
         color: color,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(radius ?? 0)),
-          side: borderColor != null ? BorderSide(color: borderColor, width: AppSize.s1.w) : BorderSide.none,
+          side: borderColor != null ? BorderSide(color: borderColor, width: 1) : BorderSide.none,
         ),
         shadows: shadows,
       ),
@@ -47,8 +48,49 @@ extension WidgetExtension on Widget {
     );
   }
 
-  CircleAvatar circle({
-    double radius = AppSize.s24,
+  Widget setMainContainer() {
+    final context = rootNavigatorKey.currentContext!;
+    return setInkContainerToView(
+      padding: 14.sp,
+      radius: 8.sp,
+      color: context.primaryCardColor,
+      borderColor: context.variantBorderColor,
+    );
+  }
+
+  Widget setInkContainerToView({
+    double? height,
+    double? width,
+    double? margin,
+    double? padding,
+    double? radius,
+    Color? color,
+    Color? borderColor,
+    AlignmentGeometry? alignment,
+    List<BoxShadow>? shadows,
+  }) {
+    return Ink(
+      decoration: ShapeDecoration(
+        color: color,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(radius ?? 0)),
+          side: borderColor != null ? BorderSide(color: borderColor, width: 1) : BorderSide.none,
+        ),
+        shadows: shadows,
+      ),
+      child: Container(
+        width: width,
+        height: height,
+        alignment: alignment,
+        margin: EdgeInsets.all(margin ?? 0),
+        padding: EdgeInsets.all(padding ?? 0.r),
+        child: this,
+      ),
+    );
+  }
+
+  Widget circle({
+    double radius = 24,
     double borderWidth = 0,
     Color? backgroundColor,
     Color? borderColor,
@@ -67,21 +109,21 @@ extension WidgetExtension on Widget {
     double? width,
     Color? color,
     bool hasBorder = true,
-    double radius = AppSize.s16,
-    double padding = AppSize.s0,
+    double radius = 16,
+    double padding = 0,
   }) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(radius.r),
       child: BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 25.0, sigmaY: 25.0),
         child: Container(
-          height: height ?? AppSize.s60.h,
+          height: height ?? 60.h,
           width: width,
           padding: EdgeInsets.all(padding),
           decoration: BoxDecoration(
             color: color ?? Colors.white.withOpacity(0.4),
             borderRadius: BorderRadius.circular(radius.r),
-            border: hasBorder ? Border.all(color: color ?? Colors.white.withOpacity(0.6), width: AppSize.s1.w) : null,
+            border: hasBorder ? Border.all(color: color ?? Colors.white.withOpacity(0.6), width: 1.w) : null,
           ),
           child: this,
         ),
@@ -89,19 +131,19 @@ extension WidgetExtension on Widget {
     );
   }
 
-  Widget setTitle(
-    BuildContext context, {
+  Widget setTitle({
     String? title,
     Widget? titleIcon,
     double? fontSize,
     TextStyle? titleStyle,
-    double gap = AppSize.s12,
-    double titlePadding = AppSize.s0,
+    double gap = 8,
+    double titlePadding = 0,
   }) {
+    final context = rootNavigatorKey.currentContext!;
     return title != null
         ? Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-              Text(title, style: titleStyle ?? context.titleMedium.bold.s12).paddingHorizontal(titlePadding),
+              Text(title, style: titleStyle ?? context.bodyLarge.bold.s12).paddingHorizontal(titlePadding),
               titleIcon ?? const SizedBox.shrink()
             ]),
             gap.h.verticalSpace,
@@ -113,8 +155,8 @@ extension WidgetExtension on Widget {
   Widget setSvgToView({
     required String svgPath,
     Color? color,
-    double size = AppSize.s24,
-    double gap = AppSize.s8,
+    double size = 24,
+    double gap = 8,
     bool isEnd = false,
   }) {
     return Row(
@@ -124,7 +166,19 @@ extension WidgetExtension on Widget {
         if (isEnd) gap.w.horizontalSpace,
         svgPath.toSvg(color: color, height: size, width: size),
         if (!isEnd) gap.w.horizontalSpace,
-        if (!isEnd) this,
+        if (!isEnd) expand(),
+      ],
+    );
+  }
+
+  Widget setBullet({Color? bulletColor, double size = 4, double indent = 4}) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        CircleAvatar(radius: size, backgroundColor: bulletColor),
+        indent.gap,
+        this,
       ],
     );
   }
@@ -134,17 +188,17 @@ extension WidgetExtension on Widget {
     return visible ? this : (fallback ?? const SizedBox.shrink());
   }
 
-  Widget setBorder(
-    BuildContext context, {
+  Widget setBorder({
     double? width,
     Color? color,
     double radius = 0,
     double padding = 0,
   }) {
+    final context = rootNavigatorKey.currentContext!;
     return Container(
       padding: padding.edgeInsetsAll.w,
       decoration: BoxDecoration(
-        border: Border.all(color: color ?? context.inputFieldBorderColor, width: width ?? 1),
+        border: Border.all(color: color ?? context.variantBorderColor, width: width ?? 1),
         borderRadius: BorderRadius.circular(radius),
       ),
       child: this,
@@ -168,7 +222,7 @@ extension WidgetExtension on Widget {
   }
 
   /// add custom corner radius each side
-  ClipRRect cornerRadiusWithClipRRectOnly({
+  ClipRRect clipRRectOnly({
     double bottomLeft = 0,
     double bottomRight = 0,
     double topLeft = 0,
@@ -187,7 +241,7 @@ extension WidgetExtension on Widget {
   }
 
   /// add corner radius
-  ClipRRect cornerRadiusWithClipRRect(double radius) {
+  ClipRRect clipRRect(double radius) {
     return ClipRRect(
       borderRadius: BorderRadius.all(Radius.circular(radius)),
       clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -195,7 +249,7 @@ extension WidgetExtension on Widget {
     );
   }
 
-  ClipRRect cornerRadiusWithClipRRectTop(double radius) {
+  ClipRRect clipRRectTop(double radius) {
     return ClipRRect(
       borderRadius: BorderRadius.only(topLeft: Radius.circular(radius), topRight: Radius.circular(radius)),
       clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -203,7 +257,7 @@ extension WidgetExtension on Widget {
     );
   }
 
-  ClipRRect cornerRadiusWithClipRRectBottom(double radius) {
+  ClipRRect clipRRectBottom(double radius) {
     return ClipRRect(
       borderRadius: BorderRadius.only(bottomLeft: Radius.circular(radius), bottomRight: Radius.circular(radius)),
       clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -211,7 +265,23 @@ extension WidgetExtension on Widget {
     );
   }
 
-  ClipRRect cornerRadiusWithClipRRectOnlyWithBorder({
+  ClipRRect clipRRectStart(double radius) {
+    return ClipRRect(
+      borderRadius: BorderRadiusDirectional.horizontal(start: Radius.circular(radius)),
+      clipBehavior: Clip.antiAliasWithSaveLayer,
+      child: this,
+    );
+  }
+
+  ClipRRect clipRRectEnd(double radius) {
+    return ClipRRect(
+      borderRadius: BorderRadiusDirectional.horizontal(end: Radius.circular(radius)),
+      clipBehavior: Clip.antiAliasWithSaveLayer,
+      child: this,
+    );
+  }
+
+  ClipRRect clipRRectOnlyWithBorder({
     double bottomLeft = 0,
     double bottomRight = 0,
     double topLeft = 0,
@@ -279,15 +349,19 @@ extension WidgetExtension on Widget {
 
   Widget withSafeArea({EdgeInsets? minimum}) => SafeArea(minimum: minimum ?? EdgeInsets.zero, child: this);
 
+  Widget bottomSafeArea({EdgeInsets? minimum}) => SafeArea(
+        minimum: EdgeInsets.only(left: AppSize.screenPadding, right: AppSize.screenPadding, bottom: 16),
+        child: this,
+      );
+
   /// Make your any widget refreshable with RefreshIndicator on top
   // Widget get makeRefreshable => Stack(children: [ListView(), this]);
   RefreshIndicator makeRefreshable(Future<void> Function() onRefresh, {EdgeInsetsGeometry? padding}) {
-    return RefreshIndicator(
-      displacement: AppSize.s20.sp,
+    return RefreshIndicator.adaptive(
       backgroundColor: LightThemeColors.scaffoldBackground,
       color: LightThemeColors.primary,
       onRefresh: () {
-        HapticFeedback.vibrate();
+        HapticFeedback.lightImpact();
         return onRefresh();
       },
       child: ListView(
@@ -439,10 +513,29 @@ extension LayoutExtensions on Widget {
   }) {
     return SingleChildScrollView(
       primary: primary,
-      padding: padding ?? EdgeInsets.symmetric(horizontal: AppSize.screenPadding, vertical: AppSize.s16.h),
+      padding: padding ?? EdgeInsets.symmetric(horizontal: AppSize.screenPadding, vertical: 16.h),
       physics: physics ?? const AlwaysScrollableScrollPhysics(),
       reverse: reverse,
       child: this,
+    );
+  }
+
+  Widget withListView({
+    Axis scrollDirection = Axis.vertical,
+    bool reverse = false,
+    bool primary = true,
+    bool shrinkWrap = false,
+    EdgeInsetsGeometry? padding,
+    ScrollPhysics? physics,
+  }) {
+    return ListView(
+      scrollDirection: scrollDirection,
+      reverse: reverse,
+      primary: primary,
+      shrinkWrap: shrinkWrap,
+      padding: padding ?? EdgeInsets.symmetric(horizontal: AppSize.screenPadding, vertical: 16.h),
+      physics: physics,
+      children: [this],
     );
   }
 
@@ -470,6 +563,14 @@ extension TransformExtension on Widget {
   /// add rotation to parent widget
   Widget rotate({required double angle, bool transformHitTests = true, Offset? origin}) {
     return Transform.rotate(origin: origin, angle: angle.toRadians, transformHitTests: transformHitTests, child: this);
+  }
+
+  Widget flipHorizontal({bool enable = true, bool transformHitTests = true}) {
+    return Transform.flip(flipX: enable, transformHitTests: transformHitTests, child: this);
+  }
+
+  Widget flipVertical({bool enable = true, bool transformHitTests = true}) {
+    return Transform.flip(flipY: enable, transformHitTests: transformHitTests, child: this);
   }
 
   //rotate with animation to parent widget
@@ -507,9 +608,12 @@ extension AnimationExtension on Widget {
   }
 
   /// Validate given widget is not null and returns given value if null.
-  Widget animationSwitch() {
+  Widget animationSwitch({
+    Duration? duration,
+    Curve curve = Curves.easeInOut,
+  }) {
     return AnimatedSwitcher(
-      duration: const Duration(milliseconds: 500),
+      duration: duration ?? transitionDuration,
       transitionBuilder: (Widget child, Animation<double> animation) {
         return FadeTransition(opacity: animation, child: child);
       },
@@ -576,4 +680,16 @@ extension TextEx on Text {
 
 extension ColorEx on Color {
   ColorFilter get colorFilter => ColorFilter.mode(this, BlendMode.srcIn);
+}
+
+extension BoolExt on bool {
+  T? toggle<T>(T? ifTrue, T? ifFalse) => this ? ifTrue : ifFalse;
+
+  void toggleAction(void Function() ifTrue, void Function() ifFalse) {
+    if (this) {
+      ifTrue();
+    } else {
+      ifFalse();
+    }
+  }
 }

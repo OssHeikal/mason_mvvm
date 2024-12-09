@@ -29,7 +29,7 @@ class CustomPhoneField extends StatelessWidget {
       textDirection: ui.TextDirection.ltr,
       child: Container(
         decoration: BoxDecoration(
-          border: Border(bottom: BorderSide(color: LightThemeColors.inputFieldBorder, width: AppSize.s1)),
+          border: Border(bottom: BorderSide(color: LightThemeColors.inputFieldBorder, width: 1)),
         ),
         child: Row(
           children: [
@@ -37,12 +37,12 @@ class CustomPhoneField extends StatelessWidget {
               showFlagDialog: true,
               showCountryOnly: false,
               padding: EdgeInsets.zero,
-              flagWidth: AppSize.s24.sp,
+              flagWidth: 24.sp,
               showOnlyCountryWhenClosed: false,
               favorite: LocalizationConstants.favCountry,
               initialSelection: LocalizationConstants.initialSelection,
               textStyle: context.titleMedium.setFontSize(fontSize ?? FontSize.s16),
-              flagDecoration: BoxDecoration(borderRadius: BorderRadius.circular(AppSize.s3.r)),
+              flagDecoration: BoxDecoration(borderRadius: BorderRadius.circular(3.r)),
               onChanged: (e) {
                 if (e.dialCode != null) {
                   onChangedCode(e.dialCode.toString());
@@ -60,13 +60,13 @@ class CustomPhoneField extends StatelessWidget {
                 hintText: 'XXXXXXXXXX',
                 hintStyle: context.hintTextStyle.setFontSize(fontSize ?? FontSize.s16),
                 border: InputBorder.none,
-                contentPadding: const EdgeInsets.symmetric(horizontal: AppSize.s16, vertical: 0),
+                contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
               ),
             ).expand(),
             Assets.icons.close.path
-                .toSvg(height: AppSize.s12.sp, width: AppSize.s12.sp)
+                .toSvg(height: 12.sp, width: 12.sp)
                 .onTap(() => controller!.clear())
-                .withSize(AppSize.s20.w, AppSize.s40.h),
+                .withSize(20.w, 40.h),
           ],
         ),
       ),

@@ -27,8 +27,8 @@ extension ThemeExtension on BuildContext {
 
   // validation colors
   Color get errorColor => theme.colorScheme.error;
-  Color get successColor => headlineMedium.color!;
-  Color get warningColor => headlineSmall.color!;
+  Color get successColor => headlineSmall.color!;
+  Color get warningColor => headlineLarge.color!;
 
   Color get errorContainerColor => theme.colorScheme.errorContainer;
 
@@ -43,7 +43,7 @@ extension ThemeExtension on BuildContext {
 
   Color get primaryBorder => bodyMedium.color!;
   Color get variantBorderColor => labelSmall.color!;
-  Color get secondaryBorderColor => theme.tabBarTheme.unselectedLabelColor!;
+  Color get secondaryBorderColor => labelLarge.color!;
 
   // icons
   IconThemeData? get iconTheme => theme.appBarTheme.iconTheme;
@@ -71,5 +71,5 @@ extension ThemeExtension on BuildContext {
   TextStyle get labelLarge => textTheme.labelLarge!;
   TextStyle get labelMedium => textTheme.labelMedium!;
   TextStyle get labelSmall => textTheme.labelSmall!;
-  TextStyle get errorStyle => textTheme.headlineLarge!.s12.regular;
+  TextStyle get errorStyle => textTheme.headlineMedium!.s12.regular;
 }

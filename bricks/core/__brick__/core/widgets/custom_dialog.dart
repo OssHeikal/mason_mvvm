@@ -18,6 +18,7 @@ class CustomDialog extends StatelessWidget {
     this.onCancel,
     this.confirmColor,
     this.showConfirm = true,
+    this.isDestructive = false,
   });
   final String title;
   final String? confirmLabel;
@@ -26,42 +27,72 @@ class CustomDialog extends StatelessWidget {
   final void Function()? onCancel;
   final Color? confirmColor;
   final bool showConfirm;
+  final bool isDestructive;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const CustomCloseButton(center: false),
-        AppSize.s18.verticalSpace,
-        Text(title, style: context.titleMedium.medium.s16),
-        AppSize.s32.verticalSpace,
-        if (showConfirm) ...[
-          CustomButton(
-            backgroundColor: confirmColor,
-            label: confirmLabel ?? LocaleKeys.confirm.tr(),
-            onPressed: () {
-              context.pop();
-              onConfirm?.call();
-            },
-          ),
-          AppSize.s16.verticalSpace,
-        ],
-        CustomButton.outlined(
-          label: cancelLabel ?? LocaleKeys.cancel.tr(),
-          onPressed: () {
-            context.pop();
-            onCancel?.call();
-          },
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const CustomCloseButton(center: false),
+            18.verticalSpace,
+            Text(title, style: context.bodyLarge.medium.s16),
+            32.verticalSpace,
+            if (showConfirm) ...[
+              CustomButton(
+                borderColor: _confirmBorderColor(context),
+                fontColor: _confirmTextColor(context),
+                backgroundColor: confirmColor ?? _confirmBackgroundColor(context),
+                label: confirmLabel ?? LocaleKeys.actions_confirm.tr(),
+                onPressed: () {
+                  context.pop();
+                  onConfirm?.call();
+                },
+              ),
+              16.verticalSpace,
+            ],
+            CustomButton.outlined(
+              borderColor: context.iconColorDisabled,
+              fontColor: context.iconColorDisabled,
+              label: cancelLabel ?? LocaleKeys.actions_cancel.tr(),
+              onPressed: () {
+                context.pop();
+                onCancel?.call();
+              },
+            )
+          ],
         )
+            .setContainerToView(
+              padding: AppSize.screenPadding,
+              color: context.scaffoldBackgroundColor,
+              radius: 6.r,
+            )
+            .paddingHorizontal(36)
       ],
-    )
-        .setContainerToView(
-          padding: AppSize.screenPadding,
-          color: context.scaffoldBackgroundColor,
-          radius: AppSize.s6.r,
-        )
-        .paddingHorizontal(AppSize.s36);
+    ).center();
+  }
+
+  Color _confirmBorderColor(BuildContext context) {
+    if (isDestructive) {
+      return context.errorColor;
+    }
+    return context.primaryColor;
+  }
+
+  Color? _confirmTextColor(BuildContext context) {
+    if (isDestructive) {
+      return context.errorColor;
+    }
+    return null;
+  }
+
+  Color _confirmBackgroundColor(BuildContext context) {
+    if (isDestructive) {
+      return context.errorContainerColor;
+    }
+    return context.primaryColor;
   }
 }

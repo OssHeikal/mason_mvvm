@@ -13,11 +13,10 @@ class CustomArrowBack extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Assets.icons.arrowLeft.path
-        .toSvg(color: iconColor ?? context.iconColor, width: AppSize.s24, height: AppSize.s24)
-        .setContainerToView(borderColor: context.secondaryColor, radius: AppSize.s6.r, padding: AppSize.s4.r)
-        .onTap(onPressed ?? () => context.pop(context), borderRadius: AppSize.s6.r.borderRadius)
+        .toSvg(color: iconColor ?? context.iconColor, width: 24, height: 24)
+        .paddingAll(4)
+        .onTap(onPressed ?? () => context.pop(context), borderRadius: 6.r.borderRadius)
         .center()
-        .rotate(angle: context.isArabic ? 0 : 180)
-        .paddingStart(AppSize.s8.sp);
+        .rotate(angle: context.isArabic ? 180 : 0);
   }
 }

@@ -60,3 +60,7 @@ extension ListEx<T> on List<T> {
     return map((e) => test(e) ? replace(e) : e).toList();
   }
 }
+
+extension ListExt<T> on List<T>? {
+  bool get isNullOrEmpty => this == null || this!.isEmpty;
+}

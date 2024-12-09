@@ -8,7 +8,8 @@ extension DateTimeExtensions on DateTime? {
     return this!;
   }
 
-  String format({String format = 'dd/MM/yyyy', String locale = 'en'}) {
+  String format({String format = 'dd/MM/yyyy'}) {
+    final locale = Intl.getCurrentLocale();
     return DateFormat(format, locale).format(validate);
   }
 
@@ -17,6 +18,10 @@ extension DateTimeExtensions on DateTime? {
   }
 
   bool get isNull => this == null;
+
+  DateTime get startOfDay => DateTime(validate.year, validate.month, validate.day, 0, 0, 0, 0);
+
+  DateTime get endOfDay => DateTime(validate.year, validate.month, validate.day, 23, 59, 59, 999);
 }
 
 extension DurationExtensions on Duration {

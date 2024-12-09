@@ -102,5 +102,9 @@ extension ContextExtensions on BuildContext {
 
   void showDialog(Widget dialog) => OverlayUtils.showCustomDialog(context: this, child: dialog);
 
-  void showBottomSheet(Widget bottomSheet) => OverlayUtils.showBottomSheet(context: this, child: bottomSheet);
+  Future<T?> showBottomSheet<T>(Widget bottomSheet) =>
+      OverlayUtils.showBottomSheet<T>(context: this, child: bottomSheet);
+
+  Future<T?> showScrollableBottomSheet<T>(Widget content, {Widget? bottom}) =>
+      OverlayUtils.showScrollableBottomSheet<T>(context: this, child: content, bottom: bottom);
 }

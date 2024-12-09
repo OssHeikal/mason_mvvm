@@ -7,3 +7,5 @@ bricks:
     path: ./bricks/core
   feature:
     path: ./bricks/feature
+  feature-full:
+    path: ./bricks/feature-full

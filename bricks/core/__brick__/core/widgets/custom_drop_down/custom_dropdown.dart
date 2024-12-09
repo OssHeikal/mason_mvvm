@@ -31,7 +31,7 @@ mixin CustomDropdownListFilter {
   bool filter(String query);
 }
 
-const _defaultBorderRadius = BorderRadius.all(Radius.circular(AppSize.s8));
+const _defaultBorderRadius = BorderRadius.all(Radius.circular(8));
 
 final Border _defaultErrorBorder = Border.all(color: _defaultErrorColor, width: 1);
 
@@ -397,7 +397,7 @@ class _CustomDropdownState<T> extends State<CustomDropdown<T>> {
               },
             ),
           ),
-        ).setTitle(context, title: widget.label, titleStyle: context.titleLarge.s16);
+        ).setTitle(title: widget.label, titleStyle: context.titleLarge.s16);
       },
     );
   }

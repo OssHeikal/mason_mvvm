@@ -14,6 +14,8 @@ class CustomExpansionTile extends StatefulWidget {
     this.contentPadding,
     this.children,
     this.trailing,
+    this.titleStyle,
+    this.initiallyExpanded = false,
   });
 
   final String title;
@@ -23,13 +25,22 @@ class CustomExpansionTile extends StatefulWidget {
   final EdgeInsetsGeometry? contentPadding;
   final List<Widget>? children;
   final Widget? trailing;
+  final TextStyle? titleStyle;
+  final bool initiallyExpanded;
 
   @override
   State<CustomExpansionTile> createState() => _CustomExpansionTileState();
 }
 
 class _CustomExpansionTileState extends State<CustomExpansionTile> {
-  final ValueNotifier<bool> _isExpanded = ValueNotifier(false);
+  late final ValueNotifier<bool> _isExpanded;
+
+  @override
+  void initState() {
+    _isExpanded = ValueNotifier(widget.initiallyExpanded);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Theme(
@@ -40,37 +51,40 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
             return ExpansionTile(
               maintainState: true,
               enableFeedback: true,
-              collapsedShape: widget.enableBorder
-                  ? RoundedRectangleBorder(
-                      side: BorderSide(color: context.variantBorderColor),
-                      borderRadius: BorderRadius.circular(AppSize.s6.sp),
-                    )
-                  : null,
-              shape: widget.enableBorder
-                  ? RoundedRectangleBorder(
-                      side: BorderSide(color: context.variantBorderColor),
-                      borderRadius: BorderRadius.circular(AppSize.s6.sp),
-                    )
-                  : null,
-              tilePadding: widget.titlePadding ?? EdgeInsets.symmetric(horizontal: AppSize.s12.sp),
-              childrenPadding: widget.contentPadding ??
-                  EdgeInsets.symmetric(horizontal: AppSize.s12.sp).copyWith(bottom: AppSize.s16.sp),
+              initiallyExpanded: widget.initiallyExpanded,
+              collapsedShape: _buildShapeBorder(),
+              shape: _buildShapeBorder(),
+              tilePadding: widget.titlePadding ?? EdgeInsets.symmetric(horizontal: 12.sp),
+              childrenPadding: widget.contentPadding ?? EdgeInsets.all(12.sp),
               dense: true,
               onExpansionChanged: (value) => _isExpanded.value = value,
               trailing: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  if (widget.trailing != null) ...[
-                    widget.trailing!,
-                    AppSize.s8.horizontalSpace,
-                  ],
-                  Assets.icons.arrowDown.svg(colorFilter: context.iconColor.colorFilter).rotate(angle: value ? 180 : 0),
+                  if (widget.trailing != null) ...[widget.trailing!, 8.horizontalSpace],
+                  _buildDropdownArrow(),
                 ],
               ),
-              title: Text(widget.title, style: context.titleMedium.s14.regular),
+              title: Text(widget.title, style: widget.titleStyle ?? context.bodyLarge.s14.semiBold),
               children: widget.children ?? [Text(widget.content ?? '', style: context.bodyMedium.s14)],
             );
           }),
+    );
+  }
+
+  ShapeBorder? _buildShapeBorder() {
+    if (!widget.enableBorder) return null;
+    return RoundedRectangleBorder(
+      side: BorderSide(color: context.variantBorderColor),
+      borderRadius: BorderRadius.circular(6.sp),
+    );
+  }
+
+  Widget _buildDropdownArrow() {
+    return AnimatedRotation(
+      turns: _isExpanded.value ? 0.5 : 0,
+      duration: 200.milliseconds,
+      child: Assets.icons.dropdownArrow.svg(colorFilter: context.iconColor.colorFilter),
     );
   }
 }

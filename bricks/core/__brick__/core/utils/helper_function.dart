@@ -16,4 +16,5 @@ class HelperFunction {
       throw Exception('Unable to launch url');
     }
   }
+
 }

@@ -1,4 +1,4 @@
-import 'package:carousel_slider/carousel_slider.dart';
+import 'package:carousel_slider/carousel_slider.dart' as slider;
 import 'package:flutter/material.dart';
 
 class CustomSlider extends StatelessWidget {
@@ -32,16 +32,16 @@ class CustomSlider extends StatelessWidget {
   final Curve autoPlayCurve;
   final CarouselController? controller;
   final Axis scrollDirection;
-  final dynamic Function(int, CarouselPageChangedReason)? onPageChanged;
+  final dynamic Function(int, slider.CarouselPageChangedReason)? onPageChanged;
   final Widget Function(BuildContext context, int itemIndex, int) itemBuilder;
 
   @override
   Widget build(BuildContext context) {
-    return CarouselSlider.builder(
+    return slider.CarouselSlider.builder(
       itemCount: itemCount,
       itemBuilder: itemBuilder,
       carouselController: controller,
-      options: CarouselOptions(
+      options: slider.CarouselOptions(
         height: height,
         onPageChanged: onPageChanged,
         aspectRatio: aspectRatio,

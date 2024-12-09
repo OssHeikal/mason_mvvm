@@ -13,8 +13,8 @@ class CustomGridView extends StatelessWidget {
     this.title,
     this.titleStyle,
     this.enableScroll = true,
-    this.height = AppSize.s120,
-    this.separatorHeight = AppSize.s16,
+    this.height = 120,
+    this.separatorHeight = 16,
     this.crossAxisCount = 2,
     this.crossAxisSpacing = 10,
     this.mainAxisSpacing = 10,
@@ -47,9 +47,8 @@ class CustomGridView extends StatelessWidget {
       ),
       itemBuilder: itemBuilder,
     ).setTitle(
-      context,
       title: title,
-      gap: AppSize.s8.h,
+      gap: 8.h,
       titlePadding: AppSize.screenPadding,
       titleStyle: titleStyle ?? context.titleMedium.medium.s14,
     );

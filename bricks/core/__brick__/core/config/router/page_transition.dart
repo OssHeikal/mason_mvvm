@@ -29,26 +29,26 @@ CustomTransitionPage<dynamic> customTransitionPage(
     case PageTransitions.slide:
       transitionsBuilder = (context, animation, secondaryAnimation, child) {
         return SlideTransition(
-          child: child,
           position: Tween<Offset>(begin: const Offset(1.0, 0.0), end: Offset.zero).animate(animation),
+          child: child,
         );
       };
       break;
     case PageTransitions.slideUp:
       transitionsBuilder = (context, animation, secondaryAnimation, child) {
         return SlideTransition(
-          child: child,
           position: Tween<Offset>(begin: const Offset(0.0, 1.0), end: Offset.zero).animate(animation),
+          child: child,
         );
       };
       break;
     case PageTransitions.cupertino:
       transitionsBuilder = (context, animation, secondaryAnimation, child) {
         return CupertinoPageTransition(
-          child: child,
           linearTransition: true,
           primaryRouteAnimation: animation,
           secondaryRouteAnimation: secondaryAnimation,
+          child: child,
         );
       };
       break;

@@ -11,3 +11,4 @@ export 'text_style_extensions.dart';
 export 'bloc_extensions.dart';
 export 'theme_extensions.dart';
 export 'list_extensions.dart';
+export 'num_extensions.dart';

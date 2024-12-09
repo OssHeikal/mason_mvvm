@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../features/shared/presentation/view/widgets/error_view.dart';
+import '../../../modules/client/shared/presentation/view/widgets/error_view.dart';
 import '../../resources/cubit_status.dart';
 import 'all_extensions.dart';
 
@@ -17,7 +17,7 @@ extension CubitStatusEx on CubitStatus {
       case CubitStatus.init:
         return onInit ?? const SizedBox.shrink();
       case CubitStatus.loading:
-        return enableLoading ? onLoading ?? Scaffold(body: const CupertinoActivityIndicator().center()) : onSuccess;
+        return enableLoading ? onLoading ?? const CupertinoActivityIndicator().center() : onSuccess;
       case CubitStatus.success:
         return onSuccess;
       case CubitStatus.failed:
@@ -46,6 +46,14 @@ extension CubitStatusEx on CubitStatus {
         break;
     }
   }
+
+  bool get isFailed => this == CubitStatus.failed;
+
+  bool get isLoading => this == CubitStatus.loading;
+
+  bool get isInit => this == CubitStatus.init;
+
+  bool get isSuccess => this == CubitStatus.success;
 }
 
 extension AuthStatusEx on AuthStatus {
@@ -88,4 +96,14 @@ extension AuthStatusEx on AuthStatus {
         break;
     }
   }
+
+  bool get isFailed => this == AuthStatus.failed;
+
+  bool get isLoading => this == AuthStatus.loading;
+
+  bool get isUnauthorized => this == AuthStatus.unauthorized;
+
+  bool get isAuthorized => this == AuthStatus.authorized;
+
+  bool get isInit => this == AuthStatus.unauthorized;
 }

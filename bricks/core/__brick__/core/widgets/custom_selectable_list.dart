@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../config/extensions/all_extensions.dart';
-import '../resources/resources.dart';
 import 'horizontal_list_view.dart';
 
 class CustomSelectableList extends StatefulWidget {
@@ -46,7 +45,7 @@ class _CustomSelectableListState extends State<CustomSelectableList> {
       valueListenable: selectedIndex,
       builder: (_, index, __) {
         return HorizontalListView(
-          height: AppSize.s60.h,
+          height: 60.h,
           title: widget.title,
           itemCount: widget.items.length,
           itemBuilder: (_, index) {
@@ -57,7 +56,7 @@ class _CustomSelectableListState extends State<CustomSelectableList> {
               style: context.titleLarge.regular.s14.copyWith(color: textColor),
             )
                 .center()
-                .paddingSymmetric(AppSize.s20, AppSize.s8)
+                .paddingSymmetric(20, 8)
                 .setContainerToView(radius: 100, color: bgColor)
                 .onTap(() => _onSelected(index), borderRadius: 100.0.borderRadius);
           },

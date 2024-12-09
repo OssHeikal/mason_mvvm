@@ -12,9 +12,9 @@ class HorizontalListView extends StatelessWidget {
     this.title,
     this.padding,
     this.titleStyle,
-    this.height = AppSize.s120,
+    this.height = 120,
     this.enableScroll = true,
-    this.separatorWidth = AppSize.s16,
+    this.separatorWidth = 16,
   });
 
   final int itemCount;
@@ -37,9 +37,8 @@ class HorizontalListView extends StatelessWidget {
       separatorBuilder: (_, __) => separatorWidth.w.horizontalSpace,
       itemBuilder: itemBuilder,
     ).withHeight(height.h).setTitle(
-          context,
           title: title,
-          gap: AppSize.s8.h,
+          gap: 8.h,
           titlePadding: AppSize.screenPadding,
           titleStyle: titleStyle ?? context.titleLarge.regular.s14.setHeight(2),
         );

@@ -1,7 +1,7 @@
 part of 'custom_dropdown.dart';
 
 // overlay icon
-final _defaultOverlayIconDown = Icon(Icons.arrow_back_ios_new, size: AppSize.s10.sp).rotate(angle: 90);
+final _defaultOverlayIconDown = Icon(Icons.arrow_back_ios_new, size: 10.sp).rotate(angle: 90);
 
 class _DropDownField<T> extends StatefulWidget {
   final VoidCallback onTap;

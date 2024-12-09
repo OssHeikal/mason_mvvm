@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -34,6 +35,8 @@ class CustomButton extends StatelessWidget {
   final Color? backgroundColor;
   final Color? borderColor;
   final double borderRadius;
+  final bool isLoading;
+
   const CustomButton({
     super.key,
     this.label = '',
@@ -55,6 +58,7 @@ class CustomButton extends StatelessWidget {
     this.backgroundColor,
     this.borderColor,
     this.borderRadius = AppSize.buttonRadius,
+    this.isLoading = false,
   });
 
   const CustomButton.icon({
@@ -75,6 +79,7 @@ class CustomButton extends StatelessWidget {
     this.fontSize,
     this.textStyle,
     this.fontWeight,
+    this.isLoading = false,
   })  : type = ButtonType.icon,
         svg = null,
         svgSize = null;
@@ -97,6 +102,7 @@ class CustomButton extends StatelessWidget {
     this.fontSize,
     this.textStyle,
     this.fontWeight,
+    this.isLoading = false,
   })  : type = ButtonType.svg,
         icon = null,
         iconSize = null;
@@ -119,6 +125,7 @@ class CustomButton extends StatelessWidget {
     this.fontSize,
     this.textStyle,
     this.fontWeight,
+    this.isLoading = false,
   })  : type = ButtonType.icon,
         svg = null,
         svgSize = null;
@@ -141,6 +148,7 @@ class CustomButton extends StatelessWidget {
     this.fontSize,
     this.textStyle,
     this.fontWeight,
+    this.isLoading = false,
   })  : type = ButtonType.svg,
         icon = null,
         iconSize = null;
@@ -161,6 +169,7 @@ class CustomButton extends StatelessWidget {
     this.fontSize,
     this.textStyle,
     this.fontWeight,
+    this.isLoading = false,
   })  : type = ButtonType.text,
         icon = null,
         iconSize = null,
@@ -183,6 +192,7 @@ class CustomButton extends StatelessWidget {
     this.fontSize,
     this.textStyle,
     this.fontWeight,
+    this.isLoading = false,
   })  : type = ButtonType.text,
         icon = null,
         iconSize = null,
@@ -205,6 +215,7 @@ class CustomButton extends StatelessWidget {
     this.fontSize,
     this.textStyle,
     this.fontWeight,
+    this.isLoading = false,
   })  : type = ButtonType.text,
         icon = null,
         iconSize = null,
@@ -226,9 +237,10 @@ class CustomButton extends StatelessWidget {
     this.fontColor,
     this.textStyle,
     this.fontWeight,
+    this.isLoading = false,
   })  : type = ButtonType.text,
         icon = null,
-        fontSize = AppSize.s14,
+        fontSize = 14,
         iconSize = null,
         svg = null,
         svgSize = null;
@@ -249,6 +261,7 @@ class CustomButton extends StatelessWidget {
     this.fontSize,
     this.textStyle,
     this.fontWeight,
+    this.isLoading = false,
   })  : type = ButtonType.text,
         icon = null,
         iconSize = null,
@@ -258,7 +271,7 @@ class CustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: onPressed,
+      onPressed: isLoading ? null : onPressed,
       style: ElevatedButton.styleFrom(
         elevation: 0,
         padding: EdgeInsets.zero,
@@ -268,7 +281,7 @@ class CustomButton extends StatelessWidget {
         shape: _getButtonShape(style),
         textStyle: textStyle,
       ),
-      child: _getButtonContent(context),
+      child: isLoading ? const CupertinoActivityIndicator(color: Colors.white).center() : _getButtonContent(context),
     );
   }
 
@@ -303,8 +316,8 @@ class CustomButton extends StatelessWidget {
         return Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(icon, size: iconSize ?? AppSize.s16, color: fontColor),
-            Text(label).paddingDirectionalOnly(start: AppSize.s8, end: AppSize.s8 + (iconSize ?? AppSize.s8)),
+            Icon(icon, size: iconSize ?? 16, color: fontColor),
+            Text(label).paddingDirectionalOnly(start: 8, end: 8 + (iconSize ?? 8)),
           ],
         );
       case ButtonType.svg:
@@ -313,12 +326,12 @@ class CustomButton extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             // ignore: deprecated_member_use
-            SvgPicture.asset(svg!, height: svgSize!.sp, width: svgSize!.sp, color: fontColor),
-            Text(label).paddingDirectionalOnly(start: AppSize.s8, end: AppSize.s8 + (iconSize ?? 0)),
+            SvgPicture.asset(svg!, height: svgSize?.sp, width: svgSize?.sp, color: fontColor),
+            Text(label).paddingDirectionalOnly(start: 8, end: 8 + (iconSize ?? 0)),
           ],
         );
       case ButtonType.text:
-        return Text(label).paddingDirectionalOnly(start: AppSize.s8, end: AppSize.s8 + (iconSize ?? 0));
+        return Text(label).paddingDirectionalOnly(start: 8, end: 8 + (iconSize ?? 0));
     }
   }
 

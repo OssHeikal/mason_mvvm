@@ -33,8 +33,8 @@ class AppStrings {
 class LocalizationConstants {
   static const String localeFolderPath = 'assets/lang';
 
-  static const Locale favoriteLang = Locale("ar");
-  static const List<Locale> supportedLocales = [Locale("ar"), Locale("en")];
+  static const Locale favoriteLang = Locale("ar", 'SA');
+  static const List<Locale> supportedLocales = [Locale("ar", "SA"), Locale("en", "US")];
 
   static final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 

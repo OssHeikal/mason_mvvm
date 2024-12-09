@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
-import "../../../features/shared/presentation/view/widgets/error_view.dart";
+import "../../modules/client/shared/presentation/view/widgets/error_view.dart";
 import '../config/extensions/all_extensions.dart';
 import '../resources/resources.dart';
 
@@ -16,8 +16,8 @@ class CustomPaginatedListView<T> extends StatelessWidget {
     this.title,
     this.titleStyle,
     this.enableScroll = true,
-    this.height = AppSize.s120,
-    this.separatorHeight = AppSize.s16,
+    this.height = 120,
+    this.separatorHeight = 16,
     this.separator,
     this.loadingItemBuilder,
     this.emptyItemBuilder,
@@ -63,9 +63,8 @@ class CustomPaginatedListView<T> extends StatelessWidget {
         ),
       ),
     ).setTitle(
-      context,
       title: title,
-      gap: AppSize.s8.h,
+      gap: 8.h,
       titlePadding: AppSize.screenPadding,
       titleStyle: titleStyle ?? context.titleLarge.regular.s14.setHeight(2),
     );

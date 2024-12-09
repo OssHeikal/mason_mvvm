@@ -5,7 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../config/extensions/all_extensions.dart';
-import '../resources/resources.dart';
 
 class CustomRadioButton<T> extends StatefulWidget {
   final String name;
@@ -93,21 +92,21 @@ class RadioButtonTitle extends StatelessWidget {
         if (iconPath != null) ...[
           SvgPicture.asset(
             iconPath!,
-            width: AppSize.s24,
+            width: 24,
             color: isSelected
                 ? activeColor
                 : !hasImage
                     ? unActiveColor
                     : null,
           ),
-          AppSize.s10.horizontalSpace,
+          10.horizontalSpace,
         ],
         Text(
           name,
           style: isSelected
               ? context.textTheme.titleMedium!.copyWith(color: activeColor)
               : context.textTheme.bodyMedium!.copyWith(color: unActiveColor),
-        ).paddingTop(AppSize.s4)
+        ).paddingTop(4)
       ],
     );
   }

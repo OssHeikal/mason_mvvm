@@ -15,8 +15,8 @@ class PaginatedListView<T> extends StatelessWidget {
     this.title,
     this.titleStyle,
     this.enableScroll = true,
-    this.height = AppSize.s120,
-    this.separatorHeight = AppSize.s16,
+    this.height = 120,
+    this.separatorHeight = 16,
     this.separator,
     this.loadingItemBuilder,
     this.emptyItemBuilder,
@@ -62,9 +62,8 @@ class PaginatedListView<T> extends StatelessWidget {
         ),
       ),
     ).setTitle(
-      context,
       title: title,
-      gap: AppSize.s8.h,
+      gap: 8.h,
       titlePadding: AppSize.screenPadding,
       titleStyle: titleStyle ?? context.titleLarge.regular.s14.setHeight(2),
     );

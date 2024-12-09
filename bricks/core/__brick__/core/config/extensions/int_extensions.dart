@@ -121,6 +121,20 @@ extension IntExtensions on int? {
     return status;
   }
 
+  int get bytesToKiloBytes => validate() ~/ 1024;
+
+  int get bytesToMegaBytes => validate() ~/ (1024 * 1024);
+
+  int get formatBytes {
+    if (validate() < 1024) {
+      return validate();
+    } else if (validate() < (1024 * 1024)) {
+      return (validate() / 1024).ceil();
+    } else {
+      return (validate() / (1024 * 1024)).ceil();
+    }
+  }
+
   // returns WeekDay from the given int
   String toWeekDay({bool isHalfName = false}) {
     if (!(this! >= 1 && this! <= 7)) {

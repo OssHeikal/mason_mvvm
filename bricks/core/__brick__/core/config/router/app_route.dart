@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:evently/core/config/router/route_manager.dart';
 
 /// A class that defines the route names for the application.
 ///
@@ -8,14 +7,8 @@ import 'package:go_router/go_router.dart';
 ///
 /// Example usage:
 /// ```dart
-/// AppRoutes.home.push(context);
+/// AppRoutes.home.push(RouteConfigs.routerConfig);
 /// ```
-class AppRoutes extends AppRoute {
-  AppRoutes(super.name, super.path);
-
-  // App routes
-  static const splash = AppRoute('splash', '/');
-}
 
 class AppRoute {
   final String name;
@@ -24,32 +17,29 @@ class AppRoute {
   const AppRoute(this.name, this.path);
 
   /// Pushes the route with the given name onto the navigator.
-  Future<T?> push<T extends Object?>(
-    BuildContext context, {
+  Future<T?> push<T extends Object?>({
     Object? extra,
     Map<String, String> params = const <String, String>{},
     Map<String, dynamic> queries = const <String, dynamic>{},
   }) {
-    return context.pushNamed(name, extra: extra, queryParameters: queries, pathParameters: params);
+    return BaseRouter.routerConfig.pushNamed(name, extra: extra, queryParameters: queries, pathParameters: params);
   }
 
   /// Pushes a new route onto the navigator, and replaces the current route with the new route.
-  void pushReplacement<T extends Object?>(
-    BuildContext context, {
+  void pushReplacement<T extends Object?>({
     Object? extra,
     Map<String, String> params = const <String, String>{},
     Map<String, dynamic> queries = const <String, dynamic>{},
   }) {
-    context.pushReplacementNamed(name, extra: extra, queryParameters: queries, pathParameters: params);
+    BaseRouter.routerConfig.pushReplacementNamed(name, extra: extra, queryParameters: queries, pathParameters: params);
   }
 
   /// Navigates to the specified route.
-  void go<T extends Object?>(
-    BuildContext context, {
+  void go<T extends Object?>({
     Object? extra,
     Map<String, String> params = const <String, String>{},
     Map<String, dynamic> queries = const <String, dynamic>{},
   }) {
-    return context.goNamed(name, extra: extra, queryParameters: queries, pathParameters: params);
+    return BaseRouter.routerConfig.goNamed(name, extra: extra, queryParameters: queries, pathParameters: params);
   }
 }

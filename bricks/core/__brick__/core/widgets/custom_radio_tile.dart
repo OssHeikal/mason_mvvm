@@ -40,21 +40,21 @@ class _CustomRadioTileState<T> extends State<CustomRadioTile<T>> {
     return Row(
       children: [
         CircleAvatar(
-          radius: AppSize.s10.sp,
+          radius: 10.sp,
           backgroundColor: widget.isDisabled ? context.disabledButtonColor : context.primaryColor,
           child: CircleAvatar(
-            radius: isSelected ? AppSize.s4.sp : AppSize.s8.sp,
+            radius: isSelected ? 4.sp : 8.sp,
             backgroundColor: context.scaffoldBackgroundColor,
           ),
         ),
-        AppSize.s8.horizontalSpace,
+        8.horizontalSpace,
         if (widget.icon != null) ...[
           widget.icon.toSvg(
             color: widget.isDisabled ? context.disabledButtonColor : context.iconColor,
             height: AppSize.iconNormal,
             width: AppSize.iconNormal,
           ),
-          AppSize.s4.horizontalSpace,
+          4.horizontalSpace,
         ],
         if (widget.title != null) Text(widget.title!, style: _titleStyle),
         if (widget.trailing != null) ...[
@@ -62,7 +62,7 @@ class _CustomRadioTileState<T> extends State<CustomRadioTile<T>> {
           widget.trailing!,
         ],
       ],
-    ).setBorder(context, padding: AppSize.s12.sp, radius: AppSize.s6.sp).onTap(
+    ).setBorder( padding: 12.sp, radius: 6.sp).onTap(
         widget.isDisabled
             ? null
             : () {
@@ -72,7 +72,7 @@ class _CustomRadioTileState<T> extends State<CustomRadioTile<T>> {
                   widget.onChanged?.call(widget.value);
                 }
               },
-        borderRadius: AppSize.s6.sp.borderRadius);
+        borderRadius: 6.sp.borderRadius);
   }
 
   TextStyle get _titleStyle {

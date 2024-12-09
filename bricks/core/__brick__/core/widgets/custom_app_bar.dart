@@ -1,44 +1,37 @@
+import 'package:evently/core/config/router/route_manager.dart';
+import 'package:evently/core/widgets/custom_arrow_back.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
 
 import 'custom_search_field.dart';
 import '../config/extensions/all_extensions.dart';
-import '../resources/resources.dart';
 
 class CustomAppBar {
-  static AppBar build(
-    BuildContext context, {
+  static AppBar build({
     String? titleText,
     TextStyle? titleStyle,
     Widget? title,
     Widget? leading,
-    double leadingWidth = AppSize.s70,
+    double leadingWidth = 70,
     List<Widget>? actions,
     bool removeBack = false,
     bool centerTitle = true,
     Color? backgroundColor,
     Color? iconColor,
     Widget? bottom,
-    double bottomHeight = AppSize.s40,
+    double bottomHeight = 40,
     double height = kToolbarHeight,
   }) {
+    final context = rootNavigatorKey.currentContext!;
     return AppBar(
       toolbarHeight: height,
-      titleTextStyle: titleStyle ?? context.titleLarge.bold.s20,
+      titleTextStyle: titleStyle ?? context.bodyLarge.bold.s16,
       iconTheme: context.iconTheme!.copyWith(color: iconColor),
       backgroundColor: backgroundColor,
       leadingWidth: leadingWidth.sp,
       centerTitle: centerTitle,
       automaticallyImplyLeading: removeBack == true ? false : true,
-      leading: leading ??
-          (removeBack || !context.canPopScreen
-              ? null
-              : Assets.icons.arrowLeft.path
-                  .toSvg(color: iconColor)
-                  .center()
-                  .onTap(() => context.pop(context))
-                  .rotate(angle: context.isArabic ? 0 : 180)),
+      leading: leading ?? (removeBack || !context.canPopScreen ? null : const CustomArrowBack()),
       title: title ?? Text(titleText ?? ''),
       actions: actions,
       bottom: bottom != null ? PreferredSize(preferredSize: Size.fromHeight(bottomHeight.h), child: bottom) : null,
@@ -50,11 +43,11 @@ class CustomAppBar {
     void Function(String)? onChanged,
     Widget? bottom,
     String? hintText,
-    double bottomHeight = AppSize.s40,
+    double bottomHeight = 40,
     void Function()? onFilter,
   }) {
     return AppBar(
-      toolbarHeight: AppSize.s90.h,
+      toolbarHeight: 90.h,
       title: CustomSearchField(onChanged: onChanged, hintText: hintText, onFilter: onFilter),
       bottom: bottom != null ? PreferredSize(preferredSize: Size.fromHeight(bottomHeight.h), child: bottom) : null,
     );

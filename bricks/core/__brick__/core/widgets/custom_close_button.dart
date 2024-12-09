@@ -13,8 +13,8 @@ class CustomCloseButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Assets.icons.close.path
         .toSvg(color: context.errorColor)
-        .setContainerToView(borderColor: context.primaryContainerColor, radius: AppSize.s6.r, padding: AppSize.s4.r)
-        .onTap(() => context.pop(), borderRadius: AppSize.s6.borderRadius)
+        .setContainerToView(borderColor: context.primaryContainerColor, radius: 6.r, padding: 4.r)
+        .onTap(() => context.pop(), borderRadius: 6.borderRadius)
         .center(enabled: center);
   }
 }
