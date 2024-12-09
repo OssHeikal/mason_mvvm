@@ -1,6 +1,6 @@
-import 'package:evently/core/config/extensions/all_extensions.dart';
-import 'package:evently/core/resources/dimensions_manager.dart';
 import 'package:flutter/material.dart';
+import '../config/extensions/all_extensions.dart';
+import '../resources/resources.dart';
 
 class CustomBottomSheet extends StatelessWidget {
   const CustomBottomSheet({super.key, required this.child, required this.title});

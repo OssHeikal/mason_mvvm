@@ -1,9 +1,9 @@
 import 'dart:io';
 
 import 'package:easy_localization/easy_localization.dart';
-import 'package:evently/core/config/extensions/all_extensions.dart';
 import 'package:file_picker/file_picker.dart';
 
+import '../config/extensions/all_extensions.dart';
 import '../resources/resources.dart';
 
 class Validator {

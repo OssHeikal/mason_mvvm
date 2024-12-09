@@ -4,8 +4,8 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:mutaafi/core/config/router/route_manager.dart';
 
-import '../../config/router/router_config.dart';
 import '../../resources/type_defs.dart';
 import '../../utils/toaster_utils.dart';
 import 'error_constants.dart';
@@ -79,10 +79,10 @@ class ErrorHandler implements Exception {
       case DioExceptionType.badResponse:
         switch (error.response?.statusCode) {
           case ResponseCode.UNAUTHORIZED:
-            if (RouteConfigs.routerConfig.canPop()) {
-              RouteConfigs.routerConfig.pop();
+            if (BaseRouter.routerConfig.canPop()) {
+              BaseRouter.routerConfig.pop();
             }
-            // RouteConfigs.routerConfig.pushNamed(AppRoutes.login.name);
+            // BaseRouter.routerConfig.pushNamed(AppRoutes.login.name);
             Toaster.showToast(ErrorConstants.unauthorizedError.tr());
             return UnauthenticatedFailure(message: ErrorConstants.unauthorizedError);
           case ResponseCode.BLOCKED:

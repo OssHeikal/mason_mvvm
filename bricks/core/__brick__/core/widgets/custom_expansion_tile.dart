@@ -84,7 +84,7 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
     return AnimatedRotation(
       turns: _isExpanded.value ? 0.5 : 0,
       duration: 200.milliseconds,
-      child: Assets.icons.dropdownArrow.svg(colorFilter: context.iconColor.colorFilter),
+      child: Assets.icons.arrowDown.svg(colorFilter: context.iconColor.colorFilter),
     );
   }
 }

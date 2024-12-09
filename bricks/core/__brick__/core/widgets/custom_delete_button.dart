@@ -1,9 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:evently/core/config/extensions/all_extensions.dart';
-import 'package:evently/core/widgets/custom_dialog.dart';
 import 'package:flutter/material.dart';
 
+import '../config/extensions/all_extensions.dart';
 import '../resources/resources.dart';
+import 'custom_dialog.dart';
 
 class CustomDeleteButton extends StatelessWidget {
   const CustomDeleteButton({super.key, this.onDeleted, this.deleteLabel, this.title});

@@ -1,4 +1,5 @@
-import 'package:evently/core/config/router/route_manager.dart';
+
+import 'route_manager.dart';
 
 /// A class that defines the route names for the application.
 ///

@@ -46,7 +46,7 @@ class ErrorView extends StatelessWidget {
                 style: context.bodyMedium.s18.medium,
               ),
               AppSize.s45.verticalSpace,
-              if (onRetry != null) CustomButton(onPressed: onRetry!, label: LocaleKeys.retry.tr()),
+              if (onRetry != null) CustomButton(onPressed: onRetry!, label: LocaleKeys.actions_retry.tr()),
             ],
           ).paddingHorizontal(AppSize.s55.w).center(),
         ],

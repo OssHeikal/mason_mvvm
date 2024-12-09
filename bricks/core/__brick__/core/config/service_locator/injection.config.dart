@@ -8,59 +8,59 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:connectivity_plus/connectivity_plus.dart' as _i6;
-import 'package:dio/dio.dart' as _i4;
-import 'package:flutter_secure_storage/flutter_secure_storage.dart' as _i5;
-import 'package:get_it/get_it.dart' as _i1;
-import 'package:injectable/injectable.dart' as _i2;
-import 'package:shared_preferences/shared_preferences.dart' as _i3;
+import 'package:connectivity_plus/connectivity_plus.dart' as _i895;
+import 'package:dio/dio.dart' as _i361;
+import 'package:flutter_secure_storage/flutter_secure_storage.dart' as _i558;
+import 'package:get_it/get_it.dart' as _i174;
+import 'package:injectable/injectable.dart' as _i526;
+import 'package:shared_preferences/shared_preferences.dart' as _i460;
 
-import '../../../../features/shared/data/repository/shared_repository.dart'
-    as _i12;
-import '../../../../features/shared/presentation/controller/connectivity_cubit/connectivity_cubit.dart'
-    as _i10;
-import '../../data/client/api_client.dart' as _i8;
-import '../../data/client/logger_interceptor.dart' as _i7;
-import '../../data/local/local_data_source.dart' as _i9;
-import '../../data/remote/remote_data_source.dart' as _i11;
-import 'injection.dart' as _i13;
+import '../../../features/shared/data/repository/shared_repository.dart'
+    as _i655;
+import '../../../features/shared/presentation/controller/connectivity_cubit/connectivity_cubit.dart'
+    as _i496;
+import '../../data/client/api_client.dart' as _i897;
+import '../../data/client/logger_interceptor.dart' as _i891;
+import '../../data/local/local_data_source.dart' as _i18;
+import '../../data/remote/remote_data_source.dart' as _i803;
+import 'injection.dart' as _i464;
 
 // initializes the registration of main-scope dependencies inside of GetIt
-Future<_i1.GetIt> $initGetIt(
-  _i1.GetIt getIt, {
+Future<_i174.GetIt> $initGetIt(
+  _i174.GetIt getIt, {
   String? environment,
-  _i2.EnvironmentFilter? environmentFilter,
+  _i526.EnvironmentFilter? environmentFilter,
 }) async {
-  final gh = _i2.GetItHelper(
+  final gh = _i526.GetItHelper(
     getIt,
     environment,
     environmentFilter,
   );
   final registerModule = _$RegisterModule();
-  await gh.factoryAsync<_i3.SharedPreferences>(
+  await gh.factoryAsync<_i460.SharedPreferences>(
     () => registerModule.pref,
     preResolve: true,
   );
-  gh.lazySingleton<_i4.Dio>(() => registerModule.dio);
-  gh.lazySingleton<_i5.FlutterSecureStorage>(
+  gh.lazySingleton<_i361.Dio>(() => registerModule.dio);
+  gh.lazySingleton<_i558.FlutterSecureStorage>(
       () => registerModule.secureStorage);
-  gh.lazySingleton<_i6.Connectivity>(() => registerModule.connectivity);
-  gh.lazySingleton<_i7.LoggerInterceptor>(() => _i7.LoggerInterceptor());
-  gh.lazySingleton<_i8.ApiClient>(() => _i8.ApiClient(
-        gh<_i4.Dio>(),
-        loggingInterceptor: gh<_i7.LoggerInterceptor>(),
+  gh.lazySingleton<_i895.Connectivity>(() => registerModule.connectivity);
+  gh.lazySingleton<_i891.LoggerInterceptor>(() => _i891.LoggerInterceptor());
+  gh.lazySingleton<_i897.ApiClient>(() => _i897.ApiClient(
+        gh<_i361.Dio>(),
+        loggingInterceptor: gh<_i891.LoggerInterceptor>(),
       ));
-  gh.lazySingleton<_i9.LocalDataSource>(() => _i9.LocalDataSourceImpl(
-        gh<_i3.SharedPreferences>(),
-        gh<_i5.FlutterSecureStorage>(),
+  gh.lazySingleton<_i18.LocalDataSource>(() => _i18.LocalDataSourceImpl(
+        gh<_i460.SharedPreferences>(),
+        gh<_i558.FlutterSecureStorage>(),
       ));
-  gh.factory<_i10.ConnectivityCubit>(
-      () => _i10.ConnectivityCubit(connectivity: gh<_i6.Connectivity>()));
-  gh.lazySingleton<_i11.RemoteDataSource>(
-      () => _i11.RemoteDataSourceImpl(gh<_i8.ApiClient>()));
-  gh.lazySingleton<_i12.SharedRepository>(
-      () => _i12.SharedRepositoryImpl(gh<_i11.RemoteDataSource>()));
+  gh.factory<_i496.ConnectivityCubit>(
+      () => _i496.ConnectivityCubit(connectivity: gh<_i895.Connectivity>()));
+  gh.lazySingleton<_i803.RemoteDataSource>(
+      () => _i803.RemoteDataSourceImpl(gh<_i897.ApiClient>()));
+  gh.lazySingleton<_i655.SharedRepository>(
+      () => _i655.SharedRepositoryImpl(gh<_i803.RemoteDataSource>()));
   return getIt;
 }
 
-class _$RegisterModule extends _i13.RegisterModule {}
+class _$RegisterModule extends _i464.RegisterModule {}

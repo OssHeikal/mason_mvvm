@@ -6,7 +6,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../core/config/extensions/all_extensions.dart';
-import '../../../../../core/config/router/route_names.dart';
 import '../../../../../core/config/service_locator/injection.dart';
 import '../../../../../core/resources/cubit_status.dart';
 import '../../../../../core/resources/resources.dart';

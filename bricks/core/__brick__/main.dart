@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'core/bloc_observer/app_bloc_observer.dart';
-import 'core/config/router/router_config.dart';
+import 'core/config/router/route_manager.dart';
 import 'core/config/service_locator/injection.dart';
 import 'core/config/theme/light_theme.dart';
 import 'core/resources/app_constants.dart';
@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
           builder: (ctx) {
             return MaterialApp.router(
               title: AppStrings.appName,
-              routerConfig: RouteConfigs.routerConfig,
+              routerConfig: BaseRouter.routerConfig,
               locale: ctx.locale,
               builder: BotToastInit(),
               supportedLocales: ctx.supportedLocales,

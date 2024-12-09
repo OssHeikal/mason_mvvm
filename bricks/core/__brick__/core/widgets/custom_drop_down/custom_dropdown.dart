@@ -349,7 +349,7 @@ class _CustomDropdownState<T> extends State<CustomDropdown<T>> {
                       formFieldState.validate();
                     }
                   },
-                  noResultFoundText: widget.noResultFoundText ?? LocaleKeys.not_available.tr(),
+                  noResultFoundText: widget.noResultFoundText ?? LocaleKeys.error_not_available.tr(),
                   noResultFoundBuilder: widget.noResultFoundBuilder,
                   items: widget.items ?? [],
                   selectedItemNotifier: selectedItemNotifier,

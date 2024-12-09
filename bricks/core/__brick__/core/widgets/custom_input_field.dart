@@ -1,5 +1,3 @@
-import 'package:evently/core/utils/input_formatters.dart';
-import 'package:evently/core/widgets/paste_icon_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,7 +5,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../config/extensions/all_extensions.dart';
 import '../config/theme/light_theme.dart';
 import '../resources/resources.dart';
+import '../utils/input_formatters.dart';
 import 'close_icon_button.dart';
+import 'paste_icon_button.dart';
 
 enum DecorationType { underlined, outlined, filled }
 

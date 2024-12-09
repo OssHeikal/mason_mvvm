@@ -17,12 +17,12 @@ class DeleteButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Assets.icons.trash
         .svg(colorFilter: context.iconColor.colorFilter, height: AppSize.iconNormal)
-        .setBorder(context, radius: AppSize.s4.r, padding: AppSize.s6.r, color: context.primaryContainerColor)
+        .setBorder(radius: AppSize.s4.r, padding: AppSize.s6.r, color: context.primaryContainerColor)
         .onTap(() {
       OverlayUtils.showCustomDialog(
         context: context,
         child: CustomDialog(
-          confirmLabel: LocaleKeys.clear.tr(),
+          confirmLabel: LocaleKeys.actions_clear.tr(),
           onConfirm: onDeleted,
           confirmColor: context.errorColor,
           title: title,

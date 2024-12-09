@@ -1,16 +1,16 @@
 import 'dart:async';
 
 import 'package:easy_localization/easy_localization.dart';
-import 'package:evently/core/config/extensions/all_extensions.dart';
-import 'package:evently/core/widgets/custom_bottom_sheet.dart';
-import 'package:evently/core/widgets/custom_loading.dart';
-import 'package:evently/core/widgets/vertical_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mutaafi/core/config/extensions/all_extensions.dart';
 
 import '../resources/resources.dart';
+import 'custom_bottom_sheet.dart';
+import 'custom_loading.dart';
 import 'custom_text_field.dart';
+import 'vertical_list_view.dart';
 
 class CustomSelectionField<T> extends StatefulWidget {
   const CustomSelectionField({
@@ -59,7 +59,7 @@ class _CustomSelectionFieldState<T> extends State<CustomSelectionField<T>> {
       controller: controller,
       prefixIcon: widget.prefixIcon,
       validator: (_) => widget.validator?.call(_value.value),
-      suffixIcon: Assets.icons.dropdownArrow.svg(colorFilter: context.hintColor.colorFilter).center().withSize(20, 20),
+      suffixIcon: Assets.icons.arrowDown.svg(colorFilter: context.hintColor.colorFilter).center().withSize(20, 20),
       onTap: () async {
         context.showBottomSheet(
           CustomBottomSheet(
@@ -74,7 +74,7 @@ class _CustomSelectionFieldState<T> extends State<CustomSelectionField<T>> {
                   if (data.isEmpty) {
                     return Center(
                       child: Text(
-                        LocaleKeys.no_results.tr(),
+                        LocaleKeys.search_no_results_msg.tr(),
                         style: context.bodySmall.regular.s12,
                       ).center().withHeight(200),
                     );

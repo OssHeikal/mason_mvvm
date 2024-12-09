@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
-import "../../modules/client/shared/presentation/view/widgets/error_view.dart";
+import '../../features/shared/presentation/view/widgets/error_view.dart';
 import '../config/extensions/all_extensions.dart';
 import '../resources/resources.dart';
 

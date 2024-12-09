@@ -1,8 +1,8 @@
-import 'package:evently/core/config/router/route_manager.dart';
-import 'package:evently/core/widgets/custom_arrow_back.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../config/router/route_manager.dart';
+import 'custom_arrow_back.dart';
 import 'custom_search_field.dart';
 import '../config/extensions/all_extensions.dart';
 

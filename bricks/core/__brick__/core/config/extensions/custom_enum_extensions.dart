@@ -1,16 +1,17 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:evently/core/resources/resources.dart';
 import 'package:image_picker/image_picker.dart';
+
+import '../../resources/resources.dart';
 
 extension ImageSourceExt on ImageSource {
   SvgGenImage get icon {
     switch (this) {
       case ImageSource.camera:
-        return Assets.icons.cameraAddFill;
+        return Assets.icons.cameraAdd;
       case ImageSource.gallery:
-        return Assets.icons.imageGallaryFill;
+        return Assets.icons.imageGallary;
       default:
-        return Assets.icons.imageGallaryFill;
+        return Assets.icons.imageGallary;
     }
   }
 

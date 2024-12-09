@@ -7,10 +7,10 @@
 // ignore_for_file: type=lint
 // ignore_for_file: directives_ordering,unnecessary_import,implicit_dynamic_list_literal,deprecated_member_use
 
-import 'package:flutter/widgets.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:vector_graphics/vector_graphics.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_svg/flutter_svg.dart' as _svg;
+import 'package:vector_graphics/vector_graphics.dart' as _vg;
 
 class $AssetsIconsGen {
   const $AssetsIconsGen();
@@ -21,8 +21,20 @@ class $AssetsIconsGen {
   /// File path: assets/icons/arrow_left.svg
   SvgGenImage get arrowLeft => const SvgGenImage('assets/icons/arrow_left.svg');
 
+  /// File path: assets/icons/calendar_fill.svg
+  SvgGenImage get calendarFill => const SvgGenImage('assets/icons/calendar_fill.svg');
+
+  /// File path: assets/icons/camera_add.svg
+  SvgGenImage get cameraAdd => const SvgGenImage('assets/icons/camera_add.svg');
+
+  /// File path: assets/icons/clipboard.svg
+  SvgGenImage get clipboard => const SvgGenImage('assets/icons/clipboard.svg');
+
   /// File path: assets/icons/close.svg
   SvgGenImage get close => const SvgGenImage('assets/icons/close.svg');
+
+  /// File path: assets/icons/done.svg
+  SvgGenImage get done => const SvgGenImage('assets/icons/done.svg');
 
   /// File path: assets/icons/eye_off.svg
   SvgGenImage get eyeOff => const SvgGenImage('assets/icons/eye_off.svg');
@@ -32,6 +44,9 @@ class $AssetsIconsGen {
 
   /// File path: assets/icons/filter.svg
   SvgGenImage get filter => const SvgGenImage('assets/icons/filter.svg');
+
+  /// File path: assets/icons/image_gallary.svg
+  SvgGenImage get imageGallary => const SvgGenImage('assets/icons/image_gallary.svg');
 
   /// File path: assets/icons/search.svg
   SvgGenImage get search => const SvgGenImage('assets/icons/search.svg');
@@ -43,7 +58,22 @@ class $AssetsIconsGen {
   SvgGenImage get warning => const SvgGenImage('assets/icons/warning.svg');
 
   /// List of all assets
-  List<SvgGenImage> get values => [arrowDown, arrowLeft, close, eyeOff, eyeOn, filter, search, trash, warning];
+  List<SvgGenImage> get values => [
+        arrowDown,
+        arrowLeft,
+        calendarFill,
+        cameraAdd,
+        clipboard,
+        close,
+        done,
+        eyeOff,
+        eyeOn,
+        filter,
+        imageGallary,
+        search,
+        trash,
+        warning
+      ];
 }
 
 class $AssetsImagesGen {
@@ -59,14 +89,14 @@ class $AssetsImagesGen {
 class $AssetsLangGen {
   const $AssetsLangGen();
 
-  /// File path: assets/lang/ar_EG.json
-  String get arEG => 'assets/lang/ar_EG.json';
+  /// File path: assets/lang/ar-SA.json
+  String get arSA => 'assets/lang/ar-SA.json';
 
-  /// File path: assets/lang/en_US.json
-  String get enUS => 'assets/lang/en_US.json';
+  /// File path: assets/lang/en-US.json
+  String get enUS => 'assets/lang/en-US.json';
 
   /// List of all assets
-  List<String> get values => [arEG, enUS];
+  List<String> get values => [arSA, enUS];
 }
 
 class Assets {
@@ -107,7 +137,7 @@ class AssetGenImage {
     ImageRepeat repeat = ImageRepeat.noRepeat,
     Rect? centerSlice,
     bool matchTextDirection = false,
-    bool gaplessPlayback = false,
+    bool gaplessPlayback = true,
     bool isAntiAlias = false,
     String? package,
     FilterQuality filterQuality = FilterQuality.low,
@@ -176,7 +206,7 @@ class SvgGenImage {
   final Set<String> flavors;
   final bool _isVecFormat;
 
-  SvgPicture svg({
+  _svg.SvgPicture svg({
     Key? key,
     bool matchTextDirection = false,
     AssetBundle? bundle,
@@ -189,29 +219,29 @@ class SvgGenImage {
     WidgetBuilder? placeholderBuilder,
     String? semanticsLabel,
     bool excludeFromSemantics = false,
-    SvgTheme? theme,
+    _svg.SvgTheme? theme,
     ColorFilter? colorFilter,
     Clip clipBehavior = Clip.hardEdge,
     @deprecated Color? color,
     @deprecated BlendMode colorBlendMode = BlendMode.srcIn,
     @deprecated bool cacheColorFilter = false,
   }) {
-    final BytesLoader loader;
+    final _svg.BytesLoader loader;
     if (_isVecFormat) {
-      loader = AssetBytesLoader(
+      loader = _vg.AssetBytesLoader(
         _assetName,
         assetBundle: bundle,
         packageName: package,
       );
     } else {
-      loader = SvgAssetLoader(
+      loader = _svg.SvgAssetLoader(
         _assetName,
         assetBundle: bundle,
         packageName: package,
         theme: theme,
       );
     }
-    return SvgPicture(
+    return _svg.SvgPicture(
       loader,
       key: key,
       matchTextDirection: matchTextDirection,

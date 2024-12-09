@@ -1,7 +1,8 @@
-import 'package:evently/core/config/extensions/all_extensions.dart';
-import 'package:evently/core/resources/resources.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+import '../config/extensions/all_extensions.dart';
+import '../resources/resources.dart';
 
 class PasteIconButton extends StatelessWidget {
   const PasteIconButton({super.key, this.onPressed});

@@ -1,6 +1,8 @@
-import 'package:evently/core/config/extensions/all_extensions.dart';
-import 'package:evently/core/resources/resources.dart';
+
 import 'package:flutter/material.dart';
+import '../config/extensions/all_extensions.dart';
+
+import '../resources/resources.dart';
 
 class CloseIconButton extends StatelessWidget {
   const CloseIconButton({super.key, this.onPressed});

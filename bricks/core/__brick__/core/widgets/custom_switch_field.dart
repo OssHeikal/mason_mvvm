@@ -1,8 +1,8 @@
-import 'package:evently/core/resources/resources.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../config/extensions/all_extensions.dart';
+import '../resources/resources.dart';
 
 class CustomSwitchField extends StatefulWidget {
   const CustomSwitchField({super.key, this.title, required this.value, this.onChanged});
@@ -31,7 +31,7 @@ class _CustomSwitchFieldState extends State<CustomSwitchField> {
         Text(widget.title ?? "", style: context.bodyLarge.regular.s12)
             .setSvgToView(
               gap: 12,
-              svgPath: Assets.icons.truckFill.path,
+              svgPath: '',
               color: context.iconColorDisabled,
               size: 20.sp,
             )

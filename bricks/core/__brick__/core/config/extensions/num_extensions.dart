@@ -76,7 +76,7 @@ extension NumExt on num? {
   /// ````\
   String formattedPrice({String? currency, int decimalDigits = 0}) {
     final locale = rootNavigatorKey.currentContext?.locale.toString();
-    currency ??= LocaleKeys.sar.tr();
+    currency ??= LocaleKeys.currency_sar.tr();
     return NumberFormat.currency(name: '$currency ', decimalDigits: decimalDigits, locale: locale).format(validate());
   }
 }

@@ -2,7 +2,6 @@
 
 import 'dart:ui';
 
-import 'package:evently/core/config/router/route_manager.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -12,6 +11,7 @@ import 'package:shimmer/shimmer.dart';
 
 import '../../resources/dimensions_manager.dart';
 import '../router/page_transition.dart';
+import '../router/route_manager.dart';
 import '../theme/light_theme.dart';
 import 'all_extensions.dart';
 

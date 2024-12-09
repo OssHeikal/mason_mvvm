@@ -21,7 +21,7 @@ class CustomToast extends StatelessWidget {
         // mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          (isError ? Assets.icons.warningFill : Assets.icons.done).svg(width: 20, height: 20),
+          (isError ? Assets.icons.warning : Assets.icons.done).svg(width: 20, height: 20),
           8.gap,
           Text(
             text,
